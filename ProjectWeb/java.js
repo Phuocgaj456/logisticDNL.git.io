@@ -51,7 +51,7 @@ function searchFunction(event) {
 
 window.onscroll = function() {
     const scrollTopButton = document.getElementById("scrollTopButton");
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if (document.body.scrollTop > 700 || document.documentElement.scrollTop > 700) {
         scrollTopButton.style.display = "block";
     } else {
         scrollTopButton.style.display = "none";
@@ -72,7 +72,24 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+    const searchButton = document.getElementById('btn-srch');
+    const searchModal = document.getElementById('search-modal');
+    const closeModal = document.querySelector('.close-modal');
 
+    searchButton.addEventListener('click', () => {
+        searchModal.style.display = 'flex';
+    });
 
+    closeModal.addEventListener('click', () => {
+        searchModal.style.display = 'none';
+    });
+
+    searchModal.addEventListener('click', (e) => {
+        if (e.target === searchModal) {
+            searchModal.style.display = 'none';
+        }
+    });
+});
 
 

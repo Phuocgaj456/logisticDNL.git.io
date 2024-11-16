@@ -8,11 +8,90 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script lang="javascript" src="java.js"></script>
     <link href="styles.css" type="text/css" rel="stylesheet"/>
+    <style>
+        .service-info{
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 50px;
+        }
+        .first, .last {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            padding: 20px;
+            color: gray;
+            font-weight: bold;
+            transition: 0.3s;
+            user-select: none;
+            z-index: 1000;
+            border: 1px solid black;
+            border-radius: 50%;
+            background-color: white;
+            width: 25px;
+            height: 25px;
+        }
+
+        .first {
+            left: 25px;
+        }
+
+        .last {
+            right: 25px;
+        }
+        .first:hover, .last:hover{
+            background-color: rgb(200, 234, 245);
+        }
+        .mySlides{
+            height: 450px;
+            display: inline-block;
+            border: 1px solid white;
+            border-radius: 20px;
+            background-color: rgb(243, 243, 243);
+            display: none;
+            flex: 1 1 25%;
+
+            transition: all 0.3s ease-in-out;
+            transform: translateZ(0);
+            margin: 10px;
+        }
+        .mySlides:hover{
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.12); /* More prominent shadow on hover */
+    transform: scale(1.05) translateZ(10px);
+        }
+        .a{
+            text-decoration: none;
+            border: 1px solid lightblue;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .a:hover{
+            background-color: rgb(200, 234, 245);
+            color: black;
+        }
+        .img{
+            width: 100%;
+            height: 200px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px; 
+            overflow: hidden;
+        }
+    </style>
 </head>
 </head>
 <body>
     <div class="container">
-        <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+        <div class="logo" style="display: grid; grid-template-columns: 1fr 1fr;">
+            <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+            <div style="text-align: end; align-self: center; padding: 20px;">
+                <button id="btn-srch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+            </div>
+        </div>        
         <div style="display: block; height: 1px; border: 0; border-top: 1px solid rgb(0, 0, 0, 0.79)"></div>
         <div class="header">
             <ul class="menu">
@@ -26,9 +105,9 @@
                         <li><a href="Service1.html">Vận chuyển đường bộ</a></li>
                         <li><a href="Service2.html">Vận chuyển đường biển</a></li>
                         <li><a href="Service3.html">Vận chuyển đường hàng không</a></li>
-                        <li><a href="Service4.html">Vận chuyển đa phương thức</a></li>
-                        <li><a href="Service5.html">Vận chuyển xuyên biên giới</a></li>
-                        <li><a href="Service6.html">Dịch vụ môi giới, thuê phương tiện</a></li>
+                        <li><a href="Service4.html">Vận chuyển đường sắt</a></li>
+                        <li><a href="Service5.html">Vận chuyển đa phương thức</a></li>
+                        <li><a href="Service6.html">Vận chuyển xuyên biên giới</a></li>
                     </ul>
                 </li>
                 <span>|</span>
@@ -36,21 +115,132 @@
                 <a href="Contact.html">Liên hệ</a>
             </ul>
         </div>
-        <div style="background-color: darkcyan; font-size: 30px; color: whitesmoke; padding: 30px;">
+        <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
             DỊCH VỤ
         </div>
-        <div class="slideshow" style="height: 1200px;">
-            <table class="nav" border="1">
-                <tr><th style="background-color: lightgray;"><a href="Service.html">Tất cả dịch vụ</a></th></tr>
-                <tr><th><a href="Service1.html">Vận chuyển đường bộ</a></th></tr>
-                <tr><th><a href="Service2.html">Vận chuyển đường biển</a></th></tr>
-                <tr><th><a href="Service3.html">Vận chuyển đường hàng không</a></th></tr>
-                <tr><th><a href="Service4.html">Vận chuyển đa phương thức</a></th></tr>
-                <tr><th><a href="Service5.html">Vận chuyển xuyên biên giới</a></th></tr>
-                <tr><th><a href="Service6.html">Dịch vụ môi giới, thuê phương tiện</a></th></tr>
-            </table>
-            <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
+        <div id="search-modal" class="modal-overlay">
+            <div class="modal-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="srch-input" id="keyword">
+                <button id="srch-btn" onclick="searchFunction(event)">Search</button>
+                <div>
+                    <button class="close-modal" style="display: none;">Close</button>
+                </div>
+            </div>
         </div>
+        <div class="services" style="height: auto;">
+            <div>
+                <table class="nav" border="1">
+                    <tr><th style="background-color: lightgray;"><a href="Service.html">Tất cả dịch vụ</a></th></tr>
+                    <tr><th><a href="Service1.html">Vận chuyển đường bộ</a></th></tr>
+                    <tr><th><a href="Service2.html">Vận chuyển đường biển</a></th></tr>
+                    <tr><th><a href="Service3.html">Vận chuyển đường hàng không</a></th></tr>
+                    <tr><th><a href="Service4.html">Vận chuyển đường sắt</a></th></tr>
+                    <tr><th><a href="Service5.html">Vận chuyển đa phương thức</a></th></tr>
+                    <tr><th><a href="Service6.html">Vận chuyển xuyên biên giới</a></th></tr>
+                    <tr><th><a href="terminology.html">Các thuật ngữ</a></th></tr>
+                </table>
+            </div>
+            <div>
+                <div style="padding: 50px 0 0 50px; font-size: 40px; color: blue;">Thuật ngữ Logistics</div>
+                <img src="images/logo3.png" alt="" width="1000px" height="500px">
+            </div>
+        </div>
+        <div class="service-info">
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img1.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường bộ</p>
+                <p>Là cách vận chuyển phổ biến nhất.</p>
+                <a href="Service1.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img2.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường biển</p>
+                <a href="Service2.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img3.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường hàng không</p>
+                <a href="Service3.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img4.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường sắt</p>
+                <a href="Service4.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img5.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đa phương thức</p>
+                <a href="Service5.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img6.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển xuyên biên giới</p>
+                <a href="Service6.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img1.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường bộ</p>
+                <a href="Service1.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img2.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường biển</p>
+                <a href="Service2.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img3.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường hàng không</p>
+                <a href="Service3.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img4.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường sắt</p>
+                <a href="Service4.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img5.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển đa phương thức</p>
+                <a href="Service5.html" class="a">Xem thêm</a>
+            </div>
+            <div class="mySlides">
+                <div style="position: relative; display: inline-block;">
+                    <img class="img" src="images/img6.png">
+                </div>
+                <p style="color: darkblue; font-weight: bold;">Vận chuyển xuyên biên giới</p>
+                <a href="Service6.html" class="a">Xem thêm</a>
+            </div>
+            <a class="first" onclick="plusSlides(-1)">❮</a>
+            <a class="last" onclick="plusSlides(1)">❯</a>
+        </div>
+        </div>
+        <div>
+        </div>
+        <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
         <footer>
             <div class="info">
                 <div>
@@ -79,7 +269,39 @@
                 </div>
             </div> 
         </footer>
-        <div style="text-align: center; background-color: dimgray; padding: 5px;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
+        <div style="text-align: center; background-color: darkblue; padding: 5px; color: white;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
     </div>
+    <script>
+        let slideIndex = 0;
+        const slidesToShow = 4;
+    
+        function plusSlides(n) {
+            slideIndex += n;
+    
+            const slides = document.getElementsByClassName("mySlides");
+    
+            if (slideIndex > slides.length - slidesToShow) {
+                slideIndex = 3;
+            } else if (slideIndex < 0) {
+                slideIndex = slides.length - slidesToShow-3;
+            }
+    
+            showSlides();
+        }
+    
+        function showSlides() {
+            const slides = document.getElementsByClassName("mySlides");
+    
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (let i = 0; i < slidesToShow; i++) {
+                if (slides[(slideIndex + i) % slides.length]) {
+                    slides[(slideIndex + i) % slides.length].style.display = "block";
+                }
+            }
+        }
+        showSlides();
+    </script>
 </body>
 </html>

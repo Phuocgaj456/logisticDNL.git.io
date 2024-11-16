@@ -12,7 +12,16 @@
 </head>
 <body>
     <div class="container">
-        <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+        <div class="logo" style="display: grid; grid-template-columns: 1fr 1fr;">
+            <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+            <div style="text-align: end; align-self: center; padding: 20px;">
+                <button id="btn-srch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
         <div style="display: block; height: 1px; border: 0; border-top: 1px solid rgb(0, 0, 0, 0.79)"></div>
         <div class="header">
             <ul class="menu">
@@ -26,9 +35,9 @@
                         <li><a href="Service1.html">Vận chuyển đường bộ</a></li>
                         <li><a href="Service2.html">Vận chuyển đường biển</a></li>
                         <li><a href="Service3.html">Vận chuyển đường hàng không</a></li>
-                        <li><a href="Service4.html">Vận chuyển đa phương thức</a></li>
-                        <li><a href="Service5.html">Vận chuyển xuyên biên giới</a></li>
-                        <li><a href="Service6.html">Dịch vụ môi giới, thuê phương tiện</a></li>
+                        <li><a href="Service4.html">Vận chuyển đường sắt</a></li>
+                        <li><a href="Service5.html">Vận chuyển đa phương thức</a></li>
+                        <li><a href="Service6.html">Vận chuyển xuyên biên giới</a></li>
                     </ul>
                 </li>
                 <span>|</span>
@@ -36,18 +45,22 @@
                 <a href="Contact.html">Liên hệ</a>
             </ul>
         </div>
-        <div style="background-color: darkcyan; font-size: 30px; color: whitesmoke; padding: 30px;">
-            CÁC TIN TỨC HÀNG ĐẦU
+        <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
+            TIN TỨC
+        </div>
+        <div id="search-modal" class="modal-overlay">
+            <div class="modal-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="srch-input" id="keyword">
+                <button id="srch-btn" onclick="searchFunction(event)">Search</button>
+                <div>
+                    <button class="close-modal" style="display: none;">Close</button>
+                </div>
+            </div>
         </div>
         <div class="slideshow" style="height: 1200px;">
-            <table id="searchBox">
-                <th><input type="text" placeholder="Tìm từ khóa" id="keyword"></th>
-                <th class="search"><button id="search" onclick="searchFunction(event)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg>
-                </button></th>
-            </table>
             <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
         </div>
         <footer>
@@ -78,7 +91,7 @@
                 </div>
             </div> 
         </footer>
-        <div style="text-align: center; background-color: dimgray; padding: 5px;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
+        <div style="text-align: center; background-color: darkblue; padding: 5px; color: white;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
     </div>
 </body>
 </html>

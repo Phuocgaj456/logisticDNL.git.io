@@ -12,7 +12,16 @@
 </head>
 <body>
     <div class="container">
-        <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+        <div class="logo" style="display: grid; grid-template-columns: 1fr 1fr;">
+            <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
+            <div style="text-align: end; align-self: center; padding: 20px;">
+                <button id="btn-srch">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
         <div style="display: block; height: 1px; border: 0; border-top: 1px solid rgb(0, 0, 0, 0.79)"></div>
         <div class="header">
             <ul class="menu">
@@ -40,6 +49,18 @@
             VỀ CHÚNG TÔI
         </div>
         <div class="slideshow" style="height: 1200px;">
+            <div id="search-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                    <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="srch-input" id="keyword">
+                    <button id="srch-btn" onclick="searchFunction(event)">Search</button>
+                    <div>
+                        <button class="close-modal" style="display: none;">Close</button>
+                    </div>
+                </div>
+            </div>
             <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
         </div>
         <footer>
