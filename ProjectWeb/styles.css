@@ -51,16 +51,18 @@ a:hover {
     display: inline-block;
 }
 .submenu {
-    transform: translateX(-10px);
+    transform: translate(-40%);
     display: none;
     position: absolute;
     top: 100%;
     list-style-type: none;
     background-color: white;
-    padding: 0;
+    padding: 20px 40px 20px 40px;
     margin: 4.7px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1000;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 100px;
 }
 
 
@@ -78,7 +80,7 @@ a:hover {
 .list:hover .submenu,
 .list:focus-within .submenu,
 .submenu.show {
-    display: block;
+    display: grid;
 }
 
 #main:hover, #product:hover, #email:hover {
