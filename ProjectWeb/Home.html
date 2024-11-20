@@ -144,7 +144,14 @@
         <div style="text-align: center; background-color: darkblue; padding: 5px; color: white;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
         <script>
             let slideIndex = 1;
-    showSlides(slideIndex);
+            const slides = document.querySelector('.slideshow-container');
+            const totalSlides= document.querySelectorAll('.mySlides').length;
+    showSlides(slideIndex)
+    function showSlides(n){
+        currentSlide= (index +totalSlides )% totalSlides;
+        "slideshow-container".style.transform = `translateX(-${currentIndex * 100}%)`;
+    }
+    
 
     function plusSlides(n) {
         showSlides(slideIndex += n);
