@@ -9,14 +9,40 @@
     <script lang="javascript" src="java.js"></script>
     <link href="styles.css" type="text/css" rel="stylesheet"/>
     <style>
-        .service-info{
-            display: flex;
+        .carousel {
+            width: 90%;
             position: relative;
+            margin: auto;
             overflow: hidden;
-            text-align: center;
-            padding: 50px;
+            padding: 20px 0 20px 0;
         }
-        .first, .last {
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .mySlides {
+            height: 450px;
+            display: inline-block;
+            min-width: 25%;
+            box-sizing: border-box;
+            text-align: center;
+            background: white;
+            padding: 20px;
+        }
+        .slide{
+            height: 410px;
+            display: inline-block;
+            box-sizing: border-box;
+            text-align: center;
+            background: rgb(228, 227, 227);
+            border: 1px solid whitesmoke;
+            border-radius: 20px;
+        }
+
+
+        .prev, .next {
             cursor: pointer;
             position: absolute;
             top: 50%;
@@ -25,46 +51,38 @@
             font-weight: bold;
             transition: 0.3s;
             user-select: none;
-            z-index: 1000;
+            z-index: 100;
             border: 1px solid black;
             border-radius: 50%;
             background-color: white;
             width: 25px;
             height: 25px;
+            justify-content: center;
         }
 
-        .first {
-            left: 25px;
+        .prev {
+            left: -10px;
         }
 
-        .last {
-            right: 25px;
+        .next {
+            right: -10px;
         }
-        .first:hover, .last:hover{
+        .prev:hover, .next:hover{
             background-color: rgb(200, 234, 245);
         }
-        .mySlides{
-            height: 450px;
-            display: inline-block;
-            border: 1px solid white;
-            border-radius: 20px;
-            background-color: rgb(243, 243, 243);
-            display: none;
-            flex: 1 1 25%;
-
-            transition: all 0.3s ease-in-out;
-            transform: translateZ(0);
-            margin: 10px;
+        .slide:hover{
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.12); 
+            transform: scale(1.05) translateZ(10px);
         }
-        .mySlides:hover{
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.12); /* More prominent shadow on hover */
-    transform: scale(1.05) translateZ(10px);
+        .content{
+            height: 150px;
         }
         .a{
             text-decoration: none;
             border: 1px solid lightblue;
             border-radius: 20px;
             padding: 10px;
+            background-color: whitesmoke;
         }
         .a:hover{
             background-color: rgb(200, 234, 245);
@@ -98,12 +116,12 @@
                 <a href="Home.html">Trang chủ</a><span>|</span>
                 <a href="About.html">Giới thiệu</a><span>|</span>
                 <li class="list" aria-haspopup="true" tabindex="0" style="margin: 0px; padding: 0px;">
-                    <a href="Service.html" id="service" style="width: 60px;">Dịch vụ  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <a id="service" style="width: 60px;">Dịch vụ  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
                       </svg></a>
-                      <ul class="submenu">
+                    <ul class="submenu">
                         <div>
-                            <li style="font-size: 20px;"><a href="Service.html">Phương pháp vận chuyển</a></li>
+                            <li style="font-size: 20px; font-weight: bold;"><a href="Service.html">Phương pháp vận chuyển</a></li>
                             <li><a href="Service1.html">Vận chuyển đường bộ</a></li>
                             <li><a href="Service2.html">Vận chuyển đường biển</a></li>
                             <li><a href="Service3.html">Vận chuyển đường hàng không</a></li>
@@ -112,7 +130,7 @@
                             <li><a href="Service6.html">Vận chuyển xuyên biên giới</a></li>
                         </div>
                         <div>
-                            <li style="font-size: 20px;"><a href="Logistic.html">Dịch vụ Logistics</a></li>
+                            <li style="font-size: 20px; font-weight: bold;"><a href="Logistic.html">Dịch vụ Logistics</a></li>
                             <li><a href="Insurance">Bảo hiểm hàng hóa</a></li>
                             <li><a href="Freight.html">Cước tàu/máy bay</a></li>
                             <li><a href="Customs.html">Thủ tục hải quan thông quan</a></li>
@@ -139,100 +157,80 @@
                 </div>
             </div>
         </div>
-        <div class="services" style="height: auto;">
-            
+        <div class="services" style="height: auto;">   
         </div>
-        <div class="service-info">
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img1.png">
+        <div class="carousel">
+            <div class="slides">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;">
+                            <img class="img" src="images/img1.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển đường bộ</p>
+                        <p>Là cách vận chuyển phổ biến nhất.</p>
+                        </div>
+                        <a href="Service1.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường bộ</p>
-                <p>Là cách vận chuyển phổ biến nhất.</p>
-                <a href="Service1.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img2.png">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;" >
+                            <img class="img" src="images/img2.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển đường biển</p>
+                        </div>
+                        <a href="Service2.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường biển</p>
-                <a href="Service2.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img3.png">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;">
+                            <img class="img" src="images/img3.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển đường hàng không</p>
+                        </div>
+                        <a href="Service3.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường hàng không</p>
-                <a href="Service3.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img4.png">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;">
+                            <img class="img" src="images/img4.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển đường sắt</p>
+                        </div>
+                        <a href="Service4.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường sắt</p>
-                <a href="Service4.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img5.png">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;">
+                            <img class="img" src="images/img5.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển đa phương thức</p>
+                        </div>
+                        <a href="Service5.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đa phương thức</p>
-                <a href="Service5.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img6.png">
+                <div class="mySlides">
+                    <div class="slide">
+                        <div style="position: relative; display: inline-block;">
+                            <img class="img" src="images/img6.png" width="100%">
+                        </div>
+                        <div class="content">
+                            <p style="color: darkblue; font-weight: bold;">Vận chuyển xuyên biên giới</p>
+                        </div>
+                        <a href="Service6.html" class="a">Xem thêm</a>
+                    </div>
                 </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển xuyên biên giới</p>
-                <a href="Service6.html" class="a">Xem thêm</a>
             </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img1.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường bộ</p>
-                <a href="Service1.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img2.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường biển</p>
-                <a href="Service2.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img3.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường hàng không</p>
-                <a href="Service3.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img4.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đường sắt</p>
-                <a href="Service4.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img5.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển đa phương thức</p>
-                <a href="Service5.html" class="a">Xem thêm</a>
-            </div>
-            <div class="mySlides">
-                <div style="position: relative; display: inline-block;">
-                    <img class="img" src="images/img6.png">
-                </div>
-                <p style="color: darkblue; font-weight: bold;">Vận chuyển xuyên biên giới</p>
-                <a href="Service6.html" class="a">Xem thêm</a>
-            </div>
-            <a class="first" onclick="plusSlides(-1)">❮</a>
-            <a class="last" onclick="plusSlides(1)">❯</a>
-        </div>
-        </div>
-        <div>
+            <button class="prev">❮</button>
+            <button class="next">❯</button>
         </div>
         <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
         <footer>
@@ -266,36 +264,52 @@
         <div style="text-align: center; background-color: darkblue; padding: 5px; color: white;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
     </div>
     <script>
-        let slideIndex = 0;
-        const slidesToShow = 4;
-    
-        function plusSlides(n) {
-            slideIndex += n;
-    
-            const slides = document.getElementsByClassName("mySlides");
-    
-            if (slideIndex > slides.length - slidesToShow) {
-                slideIndex = 3;
-            } else if (slideIndex < 0) {
-                slideIndex = slides.length - slidesToShow-3;
-            }
-    
-            showSlides();
+        const slides = document.querySelector('.slides');
+        const slideElements = document.querySelectorAll('.mySlides');
+        const slideCount = slideElements.length;
+        const visibleSlides = 4;
+        const slideWidth = 100 / visibleSlides;
+        let currentIndex = visibleSlides;
+
+        const firstSlides = [...slideElements].slice(0, visibleSlides);
+        const lastSlides = [...slideElements].slice(-visibleSlides);
+
+        lastSlides.reverse().forEach(slide => slides.prepend(slide.cloneNode(true)));
+        firstSlides.forEach(slide => slides.appendChild(slide.cloneNode(true)));
+
+        slides.style.width = `${100}%`;
+
+        slides.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+
+        function updateSlides() {
+            const offset = -currentIndex * slideWidth;
+            slides.style.transition = 'transform 0.5s ease-in-out';
+            slides.style.transform = `translateX(${offset}%)`;
         }
-    
-        function showSlides() {
-            const slides = document.getElementsByClassName("mySlides");
-    
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (let i = 0; i < slidesToShow; i++) {
-                if (slides[(slideIndex + i) % slides.length]) {
-                    slides[(slideIndex + i) % slides.length].style.display = "block";
+
+        document.querySelector('.next').addEventListener('click', () => {
+            currentIndex++;
+            updateSlides();
+            setTimeout(() => {
+                if (currentIndex >= slideCount + visibleSlides) {
+                    currentIndex = visibleSlides;
+                    slides.style.transition = 'none';
+                    slides.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
                 }
-            }
-        }
-        showSlides();
+            }, 500);
+        });
+        document.querySelector('.prev').addEventListener('click', () => {
+            currentIndex--;
+            updateSlides();
+            setTimeout(() => {
+                if (currentIndex < visibleSlides) {
+                    currentIndex = slideCount + visibleSlides - 1;
+                    slides.style.transition = 'none';
+                    slides.style.transform = `translateX(-${currentIndex * slideWidth}%)`;
+                }
+            }, 500);
+        });
+        updateSlides();
     </script>
 </body>
 </html>
