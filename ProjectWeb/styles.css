@@ -242,6 +242,7 @@ table, th {
     transition: 50%;
     color: white;
     border: none;
+    border-radius: 50%;
     outline: none;
     width: 45px;
     height: 45px;
