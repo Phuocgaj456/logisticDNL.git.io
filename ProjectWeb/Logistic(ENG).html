@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script lang="javascript" src="java/java.js"></script>
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        
+        /* Biến màu */
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --hover-color: #2980b9;
+            --bg-light: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #6c757d;
+            --border-color: #e9ecef;
+        }
+        /* Layout chính */
+        .logistics-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr 300px;
+            gap: 30px;
+            padding: 20px;
+            max-width: 1800px;
+            margin: 0 auto;
+            background: var(--bg-light);
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            position: sticky;
+            top: calc(var(--header-height) + 20px);
+            height: calc(100vh - var(--header-height) - 40px);
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            align-self: start;
+        }
+
+        .nav-title {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 600;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--accent-color);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-bottom: 10px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-link i {
+            width: 24px;
+            font-size: 18px;
+            color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(to right, #f1f9ff, #e8f4fe);
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(to right, var(--accent-color), var(--hover-color));
+            color: white;
+        }
+
+        .nav-link.active i {
+            color: white;
+        }
+
+        /* Main Content */
+        .content-sections {
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            scroll-margin-top: calc(var(--header-height) + 20px);
+        }
+
+        .content-section h2 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-section h2 i {
+            color: var(--accent-color);
+        }
+
+        /* Service Features */
+        .service-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .feature i {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        /* Right Sidebar - Terminology */
+        .terminology-sidebar {
+            position: sticky;
+            top: calc(var(--header-height) + 20px);
+            height: calc(100vh - var(--header-height) - 40px);
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            overflow-y: auto;
+            align-self: start;
+        }
+
+        .term-item {
+            background: var(--bg-light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .term-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .term-header i {
+            font-size: 20px;
+            color: var(--accent-color);
+        }
+
+        .term-content {
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar Styling */
+        .side-nav::-webkit-scrollbar,
+        .terminology-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .side-nav::-webkit-scrollbar-track,
+        .terminology-sidebar::-webkit-scrollbar-track {
+            background: var(--bg-light);
+        }
+
+        .side-nav::-webkit-scrollbar-thumb,
+        .terminology-sidebar::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 3px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .logistics-wrapper {
+                grid-template-columns: 250px 1fr 280px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .logistics-wrapper {
+                grid-template-columns: 250px 1fr;
+            }
+            .terminology-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logistics-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .side-nav {
+                display: none;
+            }
+            .content-sections {
+                padding: 0;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeIn 0.5s ease-out;
+        }
+        img{
+            width: 100%;
+            height: 400px;
+        }
+
+        /* Thêm màu cho icons mới nếu cần */
+        .feature i.fa-clipboard-check,
+        .feature i.fa-file-signature,
+        .feature i.fa-balance-scale,
+        .feature i.fa-umbrella,
+        .feature i.fa-handshake {
+            color: var(--accent-color);
+        }
+
+        /* Có thể thêm hiệu ứng hover đặc biệt cho các icons này */
+        .feature:hover i {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="background: #f8f9fa;">
+        <div class="header" style="padding: 0;">
+            <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <ul class="menu">
+                <a href="Home.html">Home</a><span>|</span>
+                <a href="About.html">About</a><span>|</span>
+                <li class="list" aria-haspopup="true" tabindex="0">
+                    <a id="service">Service 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-container">
+                            <!-- Phương pháp vận chuyển -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-truck-moving"></i>
+                                    <span>Transport</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Transport.html#section1">
+                                        <i class="fas fa-truck"></i>
+                                        <span>Road Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section2">
+                                        <i class="fas fa-ship"></i>
+                                        <span>Sea Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section3">
+                                        <i class="fas fa-plane"></i>
+                                        <span>Air Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section4">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <span>Multimodal Transport</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logistics và chuỗi cung ứng -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Logistics & Supply Chain</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Logistic.html#section1">
+                                        <i class="fas fa-warehouse"></i>
+                                        <span>Warehouse & Distribution</span>
+                                    </a>
+                                    <a href="Logistic.html#section2">
+                                        <i class="fas fa-boxes"></i>
+                                        <span>Supply Chain Management</span>
+                                    </a>
+                                    <a href="Logistic.html#section3">
+                                        <i class="fas fa-clipboard-check"></i>
+                                        <span>Customs Clearance</span>
+                                    </a>
+                                    <a href="Logistic.html#section4">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Logistics Insurance</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Lĩnh vực -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-industry"></i>
+                                    <span>Industry</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Industry.html#section1">
+                                        <i class="fas fa-microchip"></i>
+                                        <span>Technology</span>
+                                    </a>
+                                    <a href="Industry.html#section2">
+                                        <i class="fas fa-tshirt"></i>
+                                        <span>Fashion</span>
+                                    </a>
+                                    <a href="Industry.html#section3">
+                                        <i class="fas fa-car"></i>
+                                        <span>Automotive & Parts</span>
+                                    </a>
+                                    <a href="Industry.html#section4">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>Retail & FMCG</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <span>|</span>
+                <a href="News.html">News</a><span>|</span>
+                <a href="Contact.html">Contact</a>
+            </ul>
+            <div>
+                <a href="Logistic.html" style="padding: 0; ">VIE</a>
+                <span>|</span>
+                <a href="Logistic(ENG).html" style="padding: 0;color: orange;">ENG</a>
+            </div>
+        </div>
+        <img src="images/service.png" alt="Transport" style="width: 100%; height: 600px;">
+        <div class="overlay" style="height: 660px;"></div>
+        <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
+            Logistics & Supply Chain
+        </div>
+        <div class="main-wrapper">
+            <div class="logistics-wrapper">
+                <nav class="side-nav">
+                    <h3 class="nav-title">TRANSPORT</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#section1" class="nav-link active">
+                                <i class="fas fa-warehouse"></i>
+                                Warehouse & Distribution
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#section2" class="nav-link">
+                                <i class="fas fa-link"></i>
+                                Supply Chain Management
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#section3" class="nav-link">
+                                <i class="fas fa-clipboard-check"></i>
+                                Customs Clearance
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#section4" class="nav-link">
+                                <i class="fas fa-shield-alt"></i>
+                                Logistics Insurance
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            
+                <div class="content-sections">
+                    <section id="section1" class="content-section">
+                        <h2><i class="fas fa-warehouse"></i> Warehouse & Distribution</h2>
+                        <div class="section-content">
+                            <img src="images/warehouse.png" alt="Kho bãi hiện đại" class="section-image">
+                            <div class="text-content">
+                                <h3>Modern Warehouse System</h3>
+                                <p>LogiTrack is proud to provide a state-of-the-art warehouse system, meeting all storage and distribution needs of businesses.</p>
+                                
+                                <div class="service-highlights">
+                                    <h4>Dịch vụ nổi bật</h4>
+                                    <ul>
+                                        <li>Cold Storage (-18°C to +25°C)</li>
+                                        <li>Customs & CFS</li>
+                                        <li>Professional Packaging Services</li>
+                                        <li>Integrated AI WMS System</li>
+                                        <li>National Distribution Services</li>
+                                    </ul>
+                                </div>
+
+                                <div class="features-grid">
+                                    <div class="feature">
+                                        <i class="fas fa-temperature-low"></i>
+                                        <div class="feature-content">
+                                            <h5>Temperature Control</h5>
+                                            <p>24/7 Monitoring System</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <div class="feature-content">
+                                            <h5>Optimal Security</h5>
+                                            <p>AI Cameras & 24/7 Security</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-box"></i>
+                                        <div class="feature-content">
+                                            <h5>Inventory Management</h5>
+                                            <p>Real-Time Tracking</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="section2" class="content-section">
+                        <h2><i class="fas fa-network-wired"></i> Supply Chain Management</h2>
+                        <div class="section-content">
+                            <img src="images/supply.png" alt="Quản lý chuỗi cung ứng" class="section-image">
+                            <div class="text-content">
+                                <h3>Comprehensive Supply Chain Solutions</h3>
+                                <p>LogiTrack offers integrated supply chain management solutions, optimizing processes from raw materials to final consumption.</p>
+
+                                <div class="service-highlights">
+                                    <h4>Main Services</h4>
+                                    <ul>
+                                        <li>Optimize Production Processes</li>
+                                        <li>Smart Inventory Management</li>
+                                        <li>AI Demand Forecasting</li>
+                                        <li>Traceability & Origin Tracking</li>
+                                        <li>Supply Chain Data Analytics</li>
+                                    </ul>
+                                </div>
+
+                                <div class="features-grid">
+                                    <div class="feature">
+                                        <i class="fas fa-chart-line"></i>
+                                        <div class="feature-content">
+                                            <h5>Data Analytics</h5>
+                                            <p>Big Data & AI</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-route"></i>
+                                        <div class="feature-content">
+                                            <h5>Route Optimization</h5>
+                                            <p>Reduce Transportation Costs</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-sync"></i>
+                                        <div class="feature-content">
+                                            <h5>System Integration</h5>
+                                            <p>ERP, WMS, TMS</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="section3" class="content-section">
+                        <h2><i class="fas fa-clipboard-check"></i> Customs Clearance</h2>
+                        <div class="section-content">
+                            <img src="images/lisence.png" alt="Thông quan Hải quan" class="section-image">
+                            <div class="text-content">
+                                <h3>Professional Customs Clearance Services</h3>
+                                <p>LogiTrack provides comprehensive customs clearance services, ensuring your goods are cleared quickly and in full compliance with legal regulations.</p>
+                                
+                                <div class="service-highlights">
+                                    <h4>Main Services</h4>
+                                    <ul>
+                                        <li>Consultation on Customs Procedures</li>
+                                        <li>Electronic Customs Declaration</li>
+                                        <li>HS Code Classification</li>
+                                        <li>Export/Import License</li>
+                                        <li>C/O Certificate, Special Permit</li>
+                                    </ul>
+                                </div>
+
+                                <div class="features-grid">
+                                    <div class="feature">
+                                        <i class="fas fa-file-signature"></i>
+                                        <div class="feature-content">
+                                            <h5>Electronic Declaration</h5>
+                                            <p>VNACCS/VCIS System</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-balance-scale"></i>
+                                        <div class="feature-content">
+                                            <h5>Compliance with Regulations</h5>
+                                            <p>100% Compliance</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-clock"></i>
+                                        <div class="feature-content">
+                                            <h5>Optimal Time</h5>
+                                            <p>Quick Clearance</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section id="section4" class="content-section">
+                        <h2><i class="fas fa-shield-alt"></i> Logistics Insurance</h2>
+                        <div class="section-content">
+                            <img src="images/insurance.png" alt="Bảo hiểm Logistics" class="section-image">
+                            <div class="text-content">
+                                <h3>Comprehensive Logistics Insurance Solutions</h3>
+                                <p>LogiTrack offers a wide range of insurance packages to protect your goods throughout the transportation and storage process.</p>
+
+                                <div class="service-highlights">
+                                    <h4>Insurance Types</h4>
+                                    <ul>
+                                        <li>Export/Import Cargo Insurance</li>
+                                        <li>Domestic Transportation Insurance</li>
+                                        <li>Warehouse Insurance</li>
+                                        <li>Liability Insurance</li>
+                                        <li>Special Risk Insurance</li>
+                                    </ul>
+                                </div>
+
+                                <div class="features-grid">
+                                    <div class="feature">
+                                        <i class="fas fa-umbrella"></i>
+                                        <div class="feature-content">
+                                            <h5>Comprehensive Insurance</h5>
+                                            <p>All Transportation Risks</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-handshake"></i>
+                                        <div class="feature-content">
+                                            <h5>Quick Resolution</h5>
+                                            <p>Simple Procedures</p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-globe"></i>
+                                        <div class="feature-content">
+                                            <h5>Global Coverage</h5>
+                                            <p>International Insurance</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            
+                <div class="terminology-sidebar">
+                    <h3>LOGISTICS TERMINOLOGY</h3>
+                    
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-box-open"></i>
+                            <h4>EXW (Ex Works)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <p>Selling goods at the seller's warehouse</p>
+                                <small>(Factory Price, Warehouse Price)</small>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
+                                <ol>
+                                    <li>Transport from warehouse to port/airport</li>
+                                    <li>Customs clearance</li>
+                                    <li>Purchase shipping</li>
+                                    <li>Customs clearance</li>
+                                    <li>Transport from port/airport to buyer's warehouse</li>
+                                    <li>Insurance: buy or not buy</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-ship"></i>
+                            <h4>FOB (Free On Board)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <p>Deliver goods at the seller's port (on board ship/airplane)</p>
+                                <ol>
+                                    <li>Transport from warehouse/airport to port</li>
+                                    <li>Customs clearance</li>
+                                </ol>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> NGƯỜI MUA:</h5>
+                                <ol>
+                                    <li>Purchase shipping from port/airport A-B</li>
+                                    <li>Customs clearance</li>
+                                    <li>Transport from port/airport to buyer's warehouse</li>
+                                    <li>Insurance: buy or not buy</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>CIF (Cost, Insurance & Freight)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <p>Deliver goods to buyer and include insurance</p>
+                                <ol>
+                                    <li>Transport from warehouse to port/airport</li>
+                                    <li>Customs clearance</li>
+                                    <li>Purchase shipping</li>
+                                    <li>Insurance</li>
+                                </ol>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
+                                <ol>
+                                    <li>Customs clearance</li>
+                                    <li>Transport from port/airport to buyer's warehouse</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-dollar-sign"></i>
+                            <h4>CFR (Cost and Freight)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <p>Deliver goods and pay freight to destination port</p>
+                                <ol>
+                                    <li>Transport from warehouse to export port</li>
+                                    <li>Customs clearance</li>
+                                    <li>Freight charges at export port</li>
+                                    <li>International shipping</li>
+                                </ol>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
+                                <ol>
+                                    <li>Insurance charges</li>
+                                    <li>Freight charges at destination port</li>
+                                    <li>Customs clearance</li>
+                                    <li>Transport from destination port to buyer's warehouse</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-truck-loading"></i>
+                            <h4>DAP (Delivered At Place)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <p>Deliver goods to buyer's specified location</p>
+                                <ol>
+                                    <li>Transport from warehouse to export port</li>
+                                    <li>Customs clearance</li>
+                                    <li>International shipping</li>
+                                    <li>Transport to buyer's specified location</li>
+                                </ol>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
+                                <ol>
+                                    <li>Customs clearance</li>
+                                    <li>Import tax and fee</li>
+                                    <li>Freight charges at destination point</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="term-item">
+                        <div class="term-header">
+                            <i class="fas fa-hand-holding-box"></i>
+                            <h4>DDP (Delivered Duty Paid)</h4>
+                        </div>
+                        <div class="term-content">
+                            <div class="party-section seller">
+                                <h5><i class="fas fa-user-tie"></i> BUYER:</h5>
+                                <p>Deliver goods and pay taxes at buyer's location</p>
+                                <ol>
+                                    <li>All transportation costs</li>
+                                    <li>Customs clearance</li>
+                                    <li>Import tax and fee</li>
+                                    <li>Deliver goods to buyer's location</li>
+                                </ol>
+                            </div>
+                            <div class="party-section buyer">
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
+                                <p>Receive goods at agreed location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
+        <footer class="main-footer">
+            <div class="container" style="background: white;">
+                <div class="footer-grid">
+                <!-- Company Info -->
+                    <div class="footer-section">
+                        <h3>LOGISTICS GROUP</h3>
+                        <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Huynh Tan Phat, District 7, Ho Chi Minh City</p>
+                            <p><i class="fas fa-phone"></i> (+84) 899-498-589</p>
+                            <p><i class="fas fa-envelope"></i> nguyenhblam000@gmail.com</p>
+                            <p><i class="fas fa-globe"></i> https://github.com/baolamabcd13</p>
+                        </div>
+                    </div>
+                <!-- Map Section -->
+                    <div class="footer-section">
+                        <h3>COMPANY LOCATION</h3>
+                        <h2>Find Us On The Map</h2>
+                        <div class="map-container">
+                            <img src="images/world-map.png" alt="World Map" class="world-map">
+                            <div class="map-marker vietnam"></div>
+                        </div>
+                    </div>
+        
+                <!-- Connect Section -->
+                    <div class="footer-section">
+                        <h3>CONNECT WITH US</h3>
+                        <h2>Social Media</h2>
+                        <div class="social-links">
+                            <a href="#" class="social-btn facebook" aria-label="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-btn twitter" aria-label="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-btn tiktok" aria-label="TikTok">
+                                <i class="fab fa-tiktok"></i>
+                            </a>
+                            <a href="#" class="social-btn youtube" aria-label="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-btn instagram" aria-label="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-bottom-content">
+                        <!-- Copyright Section -->
+                        <div class="copyright">
+                            <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
+                            <p>&copy; 2024 LogiTrack. All rights reserved.</p>
+                        </div>
+
+                        <!-- Policies Section -->
+                        <div class="footer-policies">
+                            <ul>
+                                <li><a href="privacy.html">Privacy Policy</a></li>
+                                <span>|</span>
+                                <li><a href="terms.html">Terms of Use</a></li>
+                                <span>|</span>
+                                <li><a href="service-policy.html">Service Policy</a></li>
+                                <span>|</span>
+                                <li><a href="shipping-policy.html">Shipping Policy</a></li>
+                                <span>|</span>
+                                <li><a href="payment-policy.html">Payment Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
