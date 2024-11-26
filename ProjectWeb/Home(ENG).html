@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script lang="javascript" src="java/java.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        .imgages{
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 1;
+            transition: opacity 4s ease-in-out;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="padding: 0;">
+            <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <ul class="menu">
+                <a href="Home.html">Trang chủ</a><span>|</span>
+                <a href="About.html">Giới thiệu</a><span>|</span>
+                <li class="list" aria-haspopup="true" tabindex="0">
+                    <a id="service">Dịch vụ 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-container">
+                            <div class="submenu-item">
+                                <a href="Transport.html">
+                                    <i class="fas fa-truck-moving"></i>
+                                    <span>Phương pháp vận chuyển</span>
+                                </a>
+                            </div>
+                            <div class="submenu-item">
+                                <a href="Logistic.html">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Logistics và chuỗi cung ứng</span>
+                                </a>
+                            </div>
+                            <div class="submenu-item">
+                                <a href="Industry.html">
+                                    <i class="fas fa-industry"></i>
+                                    <span>Lĩnh vực</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <span>|</span>
+                <a href="News.html">Tin tức</a><span>|</span>
+                <a href="Contact.html">Liên hệ</a>
+            </ul>
+            <div>
+                <a href="Home.html" style="padding: 0; color: orange;">VIE</a>
+                <span>|</span>
+                <a href="Home(ENG).html" style="padding: 0;">ENG</a>
+            </div>
+        </div>
+        <div class="slideshow-container">
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo.png');"></div>
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo1.png');"></div>
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo2.png');"></div>            
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo3.png');"></div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+            <div class="overlay">
+                <h1>LOGISTICS</h1>
+                <div class="modal-content">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                    <input type="text" placeholder="Find your service..." class="srch-input" id="keyword">
+                    <button id="srch-btn" onclick="searchFunction(event)">Search</button>
+                    <div>
+                        <button class="close-modal" style="display: none;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dot-container" style="display: none;">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+        <section id="services" class="services">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center" style="padding: 20px;">
+                <!-- Phương thức vận chuyển -->
+                <div class="section-header">
+                    <h2>Transportation Methods</h2>
+                    <p>Diverse transportation solutions for your cargo</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Land Transport -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Land Transport</h3>
+                        <p>Efficient road transportation network covering major routes and destinations.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Air Freight -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Air Freight</h3>
+                        <p>Fast and reliable air freight services worldwide with real-time tracking capabilities.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>    
+                    <!-- Sea Freight -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-ship"></i>
+                        </div>
+                        <h3>Sea Freight</h3>
+                        <p>Cost-effective ocean freight solutions for large-scale shipments globally.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Multimodal Transport -->
+                    <div class="service-card" data-aos="fade-up" data-aos-offset="-100" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3>Multimodal Transport</h3>
+                        <p>Integrated transportation solutions combining multiple modes of transport for optimal efficiency.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+
+                    <!-- Cross-border Transport -->
+                    <div class="service-card" data-aos="fade-up" data-aos-offset="-100" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Cross-border Transport</h3>
+                        <p>Specialized cross-border logistics services with customs expertise and international network.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Logistics và chuỗi cung ứng -->
+        <section class="logistics-supply-chain" style="background: darkblue; padding: 20px;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                <div class="section-header"  style="margin-top: 50px;" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                    <h2 style="color: whitesmoke;">Logistics & Supply Chain</h2>
+                    <p style="color: whitesmoke;">Comprehensive solutions for your supply chain needs</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Warehousing -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h3>Warehousing</h3>
+                        <p>Modern warehousing facilities with advanced inventory management systems.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <!-- Supply Chain -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Supply Chain</h3>
+                        <p>End-to-end supply chain solutions optimized for efficiency and reliability.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <!-- Custom Clearance -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <h3>Custom Clearance</h3>
+                        <p>Expert customs clearance services ensuring smooth international trade.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Lĩnh vực -->
+        <section class="industries" style="padding: 20px;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center"> 
+                <div class="section-header" style="margin-top: 50px;" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                    <h2>Industries</h2>
+                    <p>Specialized solutions for various sectors</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Food & Beverage -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Food & Beverage</h3>
+                        <p>Temperature-controlled logistics solutions for food and beverage industry.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <!-- Retail & Fashion -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3>Retail & Fashion</h3>
+                        <p>Specialized logistics solutions for retail and fashion industry.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <!-- Automotive -->
+                    <div class="service-card" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Automotive</h3>
+                        <p>Comprehensive logistics solutions for automotive industry.</p>
+                        <a href="#" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us" data-aos="fade-up"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="true"
+        data-aos-anchor-placement="top-center" style="padding: 20px;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Why Choose Us</h2>
+                    <p>Delivering excellence in logistics with our unique advantages</p>
+                </div>
+                <div class="features-container">
+                    <!-- Left Column -->
+                    <div class="features-image" data-aos="fade-right"
+                    data-aos-delay="50"
+                    data-aos-duration="500"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <img src="images/logistics-hub.jpg" alt="Logistics Hub">
+                        <div class="image-overlay">
+                            <div class="overlay-content">
+                                <h3>Global Logistics Excellence</h3>
+                                <p>Trusted by over 15,000 businesses worldwide</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right Column -->
+                    <div class="features-list" data-aos="fade-left"
+                    data-aos-delay="150"
+                    data-aos-duration="500"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            <div class="feature-content">
+                            <h3>Global Network</h3>
+                            <p>Connected to 200+ countries with local expertise worldwide</p>
+                        </div>
+                        <div class="hover-info">
+                            <ul>
+                                <li>International shipping routes</li>
+                                <li>24/7 global support</li>
+                                <li>Local partnerships</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Secure & Reliable</h3>
+                            <p>Advanced tracking and security measures for your cargo</p>
+                        </div>
+                        <div class="hover-info">
+                            <ul>
+                                <li>Real-time monitoring</li>
+                                <li>Insurance coverage</li>
+                                <li>Secure warehousing</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Custom Solutions</h3>
+                            <p>Tailored logistics services for your specific needs</p>
+                        </div>
+                        <div class="hover-info">
+                            <ul>
+                                <li>Industry-specific solutions</li>
+                                <li>Flexible shipping options</li>
+                                <li>Scalable services</li>
+                            </ul>
+                        </div>
+                    </div>
+            
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Sustainability</h3>
+                            <p>Eco-friendly logistics solutions for a better future</p>
+                        </div>
+                        <div class="hover-info">
+                            <ul>
+                                <li>Carbon footprint reduction</li>
+                                <li>Green packaging</li>
+                                <li>Sustainable practices</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <!-- Service Process Section -->
+        <section class="service-process" data-aos="fade-up"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="true"
+        data-aos-anchor-placement="top-center" style="padding: 20px;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Service Process</h2>
+                    <p>Professional and efficient workflow</p>
+                </div>
+            
+                <div class="process-timeline" data-aos="fade-up"
+                data-aos-offset="-100"
+                data-aos-delay="50"
+                data-aos-easing="ease-in-out"
+                data-aos-mirror="true"
+                data-aos-once="true"
+                data-aos-anchor-placement="top-center">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h3>Request Quote</h3>
+                            <p>Submit your cargo information and shipping requirements</p>
+                        </div>
+                    </div>
+        
+                    <div class="process-step" data-aos="fade-up"
+                    data-aos-offset="-200"
+                    data-aos-delay="100"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h3>Receive Quote</h3>
+                            <p>Get detailed pricing and optimal shipping solutions</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up"
+                    data-aos-offset="-300"
+                    data-aos-delay="150"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h3>Order Confirmation</h3>
+                            <p>Sign contract and confirm shipping details</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up"
+                    data-aos-offset="-400"
+                    data-aos-delay="200"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h3>Transportation</h3>
+                            <p>Real-time cargo tracking and monitoring</p>
+                        </div>
+                    </div>
+
+                    <div class="process-step" data-aos="fade-up"
+                    data-aos-offset="-500"
+                    data-aos-delay="250"
+                    data-aos-easing="ease-in-out"
+                    data-aos-mirror="true"
+                    data-aos-once="true"
+                    data-aos-anchor-placement="top-center">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h3>Delivery</h3>
+                            <p>Receive cargo and service completion confirmation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Global Network Section -->
+        <section class="global-network" data-aos="fade-up"
+        data-aos-delay="50"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="true"
+        data-aos-anchor-placement="top-center" style="padding: 20px;">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Global Network</h2>
+                    <p>Connecting businesses across continents</p>
+                </div>
+                <div class="network-grid">
+                <!-- Left Column - Images -->
+                    <div class="network-gallery">
+                        <div class="gallery-main">
+                            <img src="images/network-main.jpg" alt="Global Logistics Hub">
+                        </div>
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="images/network1.jpg" alt="Air Freight Operations">
+                                <div class="overlay">
+                                    <span>Air Operations</span>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="images/network2.jpg" alt="Sea Freight Operations">
+                                <div class="overlay">
+                                    <span>Sea Routes</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                            <img src="images/network3.jpg" alt="Ground Operations">
+                            <div class="overlay">
+                                <span>Ground Fleet</span>
+                            </div>
+                        </div>
+                        <div class="gallery-item">
+                        <img src="images/network4.jpg" alt="Warehouse Operations">
+                        <div class="overlay">
+                            <span>Warehouses</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Right Column - Content -->
+            <div class="network-content">
+                <div class="content-box">
+                    <h3>Global Reach, Local Expertise</h3>
+                    <p>Our extensive network spans across continents, providing seamless logistics solutions worldwide:</p>
+                    <div class="network-stats">
+                        <div class="stat-box">
+                            <i class="fas fa-plane-departure"></i>
+                            <h4>200+</h4>
+                            <p>Air Routes</p>
+                        </div>
+                        <div class="stat-box">
+                                <i class="fas fa-ship"></i>
+                                <h4>150+</h4>
+                                <p>Sea Routes</p>
+                            </div>
+                        <div class="stat-box">
+                            <i class="fas fa-warehouse"></i>
+                            <h4>500+</h4>
+                            <p>Warehouses</p>
+                        </div>
+                    </div>
+                    <div class="network-features">
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>24/7 Global Operations</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Strategic Hub Locations</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Integrated Transport Solutions</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
+    <footer class="main-footer">
+        <div class="container" style="background: white;">
+            <div class="footer-grid">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <h3>LOGISTICS GROUP</h3>
+                <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh City</p>
+                    <p><i class="fas fa-phone"></i></p>
+                    <p><i class="fas fa-envelope"></i></p>
+                    <p><i class="fas fa-globe"></i> </p>
+                </div>
+            </div>
+    
+            <!-- Map Section -->
+            <div class="footer-section">
+                <h3>COMPANY LOCATION</h3>
+                <h2>Find Us On Map</h2>
+                <div class="map-container">
+                    <img src="images/world-map.png" alt="World Map" class="world-map">
+                    <div class="map-marker vietnam"></div>
+                </div>
+            </div>
+    
+            <!-- Connect Section -->
+            <div class="footer-section">
+                <h3>CONNECT WITH US</h3>
+                <h2>Social Media</h2>
+                <div class="social-links">
+                    <a href="#" class="social-btn facebook" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn twitter" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-btn tiktok" aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-btn youtube" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-btn instagram" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    <div style="padding: 10px; font-size: 14px;">&copy; Logistics. Bảo lưu mọi quyền.</div> 
+    </footer>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+    }
+
+    setInterval(function() {
+        plusSlides(1);
+    }, 5000); 
+</script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>

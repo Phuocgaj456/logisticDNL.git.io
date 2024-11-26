@@ -5,68 +5,114 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script lang="javascript" src="java.js"></script>
-    <link href="styles.css" type="text/css" rel="stylesheet"/>
+    <script lang="javascript" src="java/java.js"></script>
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
 </head>
 </head>
 <body>
     <div class="container">
-        <div class="logo" style="display: grid; grid-template-columns: 1fr 1fr;">
-            <a href="Home.html" style="font-size: 50px; text-decoration: none;">LOGISTICS</a>
-            <div style="text-align: end; align-self: center; padding: 20px;">
-                <button id="btn-srch">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <div style="display: block; height: 1px; border: 0; border-top: 1px solid rgb(0, 0, 0, 0.79)"></div>
         <div class="header">
-            <div></div>
+            <a href="Home.html"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
             <ul class="menu">
                 <a href="Home.html">Trang chủ</a><span>|</span>
                 <a href="About.html">Giới thiệu</a><span>|</span>
                 <li class="list" aria-haspopup="true" tabindex="0" style="margin: 0px; padding: 0px;">
                     <a id="service" style="width: 60px;">Dịch vụ  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                      </svg></a>
-                    <ul class="submenu">
-                        <div>
-                            <li style="font-size: 20px; font-weight: bold;"><a href="Service.html">Phương pháp vận chuyển</a></li>
-                            <li><a href="Service1.html">Vận chuyển đường bộ</a></li>
-                            <li><a href="Service2.html">Vận chuyển đường biển</a></li>
-                            <li><a href="Service3.html">Vận chuyển đường hàng không</a></li>
-                            <li><a href="Service4.html">Vận chuyển đường sắt</a></li>
-                            <li><a href="Service5.html">Vận chuyển đa phương thức</a></li>
-                            <li><a href="Service6.html">Vận chuyển xuyên biên giới</a></li>
+                        </svg>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-container">
+                            <!-- Phương pháp vận chuyển -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-truck-moving"></i>
+                                    <span>Phương pháp vận chuyển</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Transport.html#section1">
+                                        <i class="fas fa-truck"></i>
+                                        <span>Vận chuyển đường bộ</span>
+                                    </a>
+                                    <a href="Transport.html#section2">
+                                        <i class="fas fa-ship"></i>
+                                        <span>Vận chuyển đường biển</span>
+                                    </a>
+                                    <a href="Transport.html#section3">
+                                        <i class="fas fa-plane"></i>
+                                        <span>Vận chuyển hàng không</span>
+                                    </a>
+                                    <a href="Transport.html#section4">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <span>Vận chuyển đa phương thức</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logistics và chuỗi cung ứng -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Logistics và chuỗi cung ứng</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Logistic.html#section1">
+                                        <i class="fas fa-warehouse"></i>
+                                        <span>Kho bãi & Phân phối</span>
+                                    </a>
+                                    <a href="Logistic.html#section2">
+                                        <i class="fas fa-boxes"></i>
+                                        <span>Quản lý chuỗi cung ứng</span>
+                                    </a>
+                                    <a href="Logistic.html#section3">
+                                        <i class="fas fa-clipboard-check"></i>
+                                        <span>Thông quan Hải quan</span>
+                                    </a>
+                                    <a href="Logistic.html#section4">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Bảo hiểm Logistics</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Lĩnh vực -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-industry"></i>
+                                    <span>Lĩnh vực</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Industry.html#section1">
+                                        <i class="fas fa-microchip"></i>
+                                        <span>Công nghệ</span>
+                                    </a>
+                                    <a href="Industry.html#section2">
+                                        <i class="fas fa-tshirt"></i>
+                                        <span>Thời trang</span>
+                                    </a>
+                                    <a href="Industry.html#section3">
+                                        <i class="fas fa-car"></i>
+                                        <span>Ô tô & Phụ tùng</span>
+                                    </a>
+                                    <a href="Industry.html#section4">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>Bán lẻ & FMCG</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <li style="font-size: 20px; font-weight: bold;"><a href="Logistic.html">Logistics và chuỗi cung ứng</a></li>
-                            <li><a href="Insurance.html">Bảo hiểm hàng hóa</a></li>
-                            <li><a href="Freight.html">Cước tàu/máy bay</a></li>
-                            <li><a href="Customs.html">Thủ tục hải quan thông quan</a></li>
-                            <li><a href="Warehousing">Giấy phép kho</a></li>
-                        </div>
-                        <div>
-                          <li style="font-size: 20px; font-weight: bold;"><a href="Logistic.html">Lĩnh vực</a></li>
-                            <li><a href="">Thực phẩm</a></li>
-                            <li><a href="">Nội thất</a></li>
-                            <li><a href="">Quần áo</a></li>
-                            <li><a href="">Phương tiện</a></li>
-                            <li><a href="">Vật liệu</a></li>
-                        </div>
-                    </ul>
+                    </div>
                 </li>
                 <span>|</span>
                 <a href="News.html">Tin tức</a><span>|</span>
                 <a href="Contact.html">Liên hệ</a>
             </ul>
             <div>
-                <a href="" style="padding: 0;">VIE</a>
+                <a href="Home.html" style="padding: 0; color: orange;">VIE</a>
                 <span>|</span>
-                <a href="" style="padding: 0;">ENG</a>
+                <a href="Home(ENG).html" style="padding: 0;">ENG</a>
             </div>
         </div>
         <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
