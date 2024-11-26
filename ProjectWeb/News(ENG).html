@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script lang="javascript" src="java/java.js"></script>
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+</head>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="Home.html"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <ul class="menu">
+                <a href="Home.html">Home</a><span>|</span>
+                <a href="About.html">About</a><span>|</span>
+                <li class="list" aria-haspopup="true" tabindex="0" style="margin: 0px; padding: 0px;">
+                    <a id="service" style="width: 60px;">Service  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
+                        </svg>
+                    </a>
+                    <div class="submenu">
+                        <div class="submenu-container">
+                            <!-- Phương pháp vận chuyển -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-truck-moving"></i>
+                                    <span>Transport</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Transport.html#section1">
+                                        <i class="fas fa-truck"></i>
+                                        <span>Road Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section2">
+                                        <i class="fas fa-ship"></i>
+                                        <span>Sea Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section3">
+                                        <i class="fas fa-plane"></i>
+                                        <span>Air Transport</span>
+                                    </a>
+                                    <a href="Transport.html#section4">
+                                        <i class="fas fa-exchange-alt"></i>
+                                        <span>Multimodal Transport</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Logistics và chuỗi cung ứng -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-network-wired"></i>
+                                    <span>Logistics & Supply Chain</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Logistic.html#section1">
+                                        <i class="fas fa-warehouse"></i>
+                                        <span>Warehouse & Distribution</span>
+                                    </a>
+                                    <a href="Logistic.html#section2">
+                                        <i class="fas fa-boxes"></i>
+                                        <span>Supply Chain Management</span>
+                                    </a>
+                                    <a href="Logistic.html#section3">
+                                        <i class="fas fa-clipboard-check"></i>
+                                        <span>Customs Clearance</span>
+                                    </a>
+                                    <a href="Logistic.html#section4">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Logistics Insurance</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Lĩnh vực -->
+                            <div class="submenu-group">
+                                <div class="submenu-header">
+                                    <i class="fas fa-industry"></i>
+                                    <span>Industry</span>
+                                </div>
+                                <div class="submenu-items">
+                                    <a href="Industry.html#section1">
+                                        <i class="fas fa-microchip"></i>
+                                           <span>Technology</span>
+                                    </a>
+                                    <a href="Industry.html#section2">
+                                        <i class="fas fa-tshirt"></i>
+                                        <span>Fashion</span>
+                                    </a>
+                                    <a href="Industry.html#section3">
+                                        <i class="fas fa-car"></i>
+                                        <span>Automotive & Parts</span>
+                                    </a>
+                                    <a href="Industry.html#section4">
+                                        <i class="fas fa-shopping-basket"></i>
+                                        <span>Retail & FMCG</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <span>|</span>
+                <a href="News.html">News</a><span>|</span>
+                <a href="Contact.html">Contact</a>
+            </ul>
+            <div>
+                <a href="News.html" style="padding: 0; ">VIE</a>
+                <span>|</span>
+                <a href="News(ENG).html" style="padding: 0;color: orange;">ENG</a>
+            </div>
+        </div>
+        <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
+            NEWS
+        </div>
+        <div id="search-modal" class="modal-overlay">
+            <div class="modal-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                </svg>
+                <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="srch-input" id="keyword">
+                <button id="srch-btn" onclick="searchFunction(event)">Search</button>
+                <div>
+                    <button class="close-modal" style="display: none;">Close</button>
+                </div>
+            </div>
+        </div>
+        <div class="slideshow" style="height: 1200px;">
+            <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
+        </div>
+        <footer class="main-footer" style="background: white;">
+            <div class="container">
+                <div class="footer-grid">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3>LOGISTICS GROUP</h3>
+                    <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh City</p>
+                        <p><i class="fas fa-ph  one"></i></p>
+                        <p><i class="fas fa-envelope"></i></p>
+                        <p><i class="fas fa-globe"></i> </p>
+                    </div>
+                </div>
+        
+                <!-- Map Section -->
+                <div class="footer-section">
+                    <h3>COMPANY LOCATION</h3>
+                    <h2>Tìm chúng tôi trên bản đồ</h2>
+                    <div class="map-container">
+                    <img src="images/world-map.png" alt="World Map" class="world-map">
+                    <div class="map-marker vietnam"></div>
+                  </div>
+                </div>
+        
+                <!-- Connect Section -->
+                <div class="footer-section">
+                  <h3>Kết nối với chúng tôi</h3>
+                  <h2>Trang mạng xã hội</h2>
+                  <div class="social-links">
+                    <a href="#" class="social-btn facebook" aria-label="Facebook">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn twitter" aria-label="Twitter">
+                      <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-btn tiktok" aria-label="TikTok">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-btn youtube" aria-label="YouTube">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+                      <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-btn instagram" aria-label="Instagram">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div style="padding: 10px; font-size: 14px;">&copy; Logistics. All rights reserved.</div> 
+        </footer>
+    </div>
+</body>
+</html>
