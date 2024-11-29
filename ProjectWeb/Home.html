@@ -576,7 +576,7 @@
             </div>
         </section>
     </div>
-    <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
+    <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top" style="border-radius: 50%;">⬆</button>
     <footer class="main-footer">
         <div class="container" style="background: white;">
             <div class="footer-grid">
@@ -701,6 +701,14 @@
     </script>
     <script>
         AOS.init();
+    </script>
+    <script>
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
     </script>
 </body>
 </html>
