@@ -118,15 +118,77 @@
         <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
             NEWS
         </div>
-        <div id="search-modal" class="modal-overlay">
-            <div class="modal-content">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16" style="padding: 10px;">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-                <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="srch-input" id="keyword">
-                <button id="srch-btn" onclick="searchFunction(event)">Search</button>
-                <div>
-                    <button class="close-modal" style="display: none;">Close</button>
+        <div class="news-container">
+            <div class="news-sidebar">
+                <h3>Latest News</h3>
+                <div class="news-item">
+                    <img src="images/news1.jpg" alt="News 1">
+                    <div class="news-item-content">
+                        <h4>New Partnership Announcement</h4>
+                        <p>LogiTrack partners with major European carriers...</p>
+                        <small>March 15, 2024</small>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="images/news2.jpg" alt="News 2">
+                    <div class="news-item-content">
+                        <h4>Sustainable Logistics Initiative</h4>
+                        <p>Our commitment to reduce carbon footprint...</p>
+                        <small>March 12, 2024</small>
+                    </div>
+                </div>
+                <div class="news-item">
+                    <img src="images/news3.jpg" alt="News 3">
+                    <div class="news-item-content">
+                        <h4>Technology Update</h4>
+                        <p>New tracking system implementation...</p>
+                        <small>March 10, 2024</small>
+                    </div>
+                </div>
+            </div>
+            <div class="news-main">
+                <div class="breaking-news">
+                    <div class="breaking-news-header">
+                        <span class="breaking-label">BREAKING NEWS</span>
+                        <div class="breaking-news-scroll">
+                            <p>LogiTrack launches new express shipping service to Europe • Major partnership announcement with Asian carriers • New sustainable logistics initiative launched</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="featured-section">
+                    <h2>Featured Story</h2>
+                    <div class="video-container">
+                        <iframe width="100%" height="400"
+                        src="https://www.youtube.com/embed/tgbNymZ7vqY?mute=1&controls=1&autoplay=1">
+                        </iframe>
+                    </div>
+                    <h3>LogiTrack Expands Global Shipping Network</h3>
+                    <p class="video-description">
+                        Watch our latest update on the expansion of our global shipping network, 
+                        featuring new routes and enhanced services for our customers worldwide.
+                    </p>
+                </div>
+
+                <div class="news-grid">
+                    <h2>Top Stories</h2>
+                    <div class="grid-container">
+                        <div class="grid-item">
+                            <img src="images/news4.jpg" alt="News Story">
+                            <h4>New Technology Implementation</h4>
+                            <p>Advanced tracking systems being rolled out across our fleet...</p>
+                        </div>
+                        <div class="grid-item">
+                            <img src="images/news5.jpg" alt="News Story">
+                            <h4>Sustainability Goals Achieved</h4>
+                            <p>Meeting our 2024 environmental targets ahead of schedule...</p>
+                        </div>
+                        <div class="grid-item">
+                            <img src="images/news6.jpg" alt="News Story">
+                            <h4>Customer Service Excellence</h4>
+                            <p>LogiTrack wins award for outstanding customer service...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
