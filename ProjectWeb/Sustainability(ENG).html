@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <script lang="javascript" src="java/java.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        /* Container và Layout */
+    .sustainability-container {
+        background: #f8f9fa;
+        padding: 20px;
+    }
+
+    .sustainability-wrapper {
+        display: grid;
+        grid-template-columns: 280px 1fr 300px;
+        gap: 30px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    /* Content Sections Styling */
+    .content-section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    }
+
+    .section-content {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 30px;
+        margin-top: 20px;
+    }
+
+    .image-content img {
+        width: 100%;
+        border-radius: 10px;
+        height: 300px;
+        object-fit: cover;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin-top: 50px;
+    }
+
+    /* Text Content Styling */
+    .text-content h3 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+
+    .text-content ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .text-content ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .text-content ul li:before {
+        content: '✓';
+        color: #2ecc71;
+        font-weight: bold;
+    }
+
+    /* Initiative Grid */
+    .initiative-grid, .program-grid, .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .initiative-item, .program-item, .metric-item {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+    .initiative-item:hover, .program-item:hover, .metric-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .initiative-item i, .program-item i, .metric-item i {
+        font-size: 24px;
+        color: #3498db;
+        margin-bottom: 10px;
+    }
+
+    /* Initiatives Section */
+    .initiatives-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .initiative-card {
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .initiative-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .initiative-card i {
+        font-size: 30px;
+        color: #3498db;
+        margin-bottom: 15px;
+    }
+
+    /* SDGs Grid */
+    .sdgs-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .sdg-item:hover {
+        transform: translateY(-5px);
+    }
+
+    .sdg-item {
+        text-align: center;
+        padding: 20px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .sdg-item img {
+        width: 170px;
+        height: 170px;
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+
+    /* Terminology Sidebar */
+    .terminology-sidebar {
+        background: white;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        position: sticky;
+        top: 80px;
+        height: calc(100vh - 100px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .terminology-sidebar h3 {
+        margin: 0 0 15px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #3498db;
+        color: #2c3e50;
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .term-container {
+        flex: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    .term-container::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .term-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+
+    .term-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+
+    .term-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+    .term-item {
+        background: #f8f9fa;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .term-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .term-item h4 {
+        color: #3498db;
+        margin: 0 0 8px 0;
+        font-size: 1rem;
+        line-height: 1.3;
+        flex-shrink: 0;
+    }
+
+    .term-item p {
+        color: #666;
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.5;
+        flex: 1;
+        overflow: auto;
+    }
+
+    .term-item p::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .term-item p::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .term-item p::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+    }
+
+    /* Section Headers */
+    .content-section h2 {
+        color: #2c3e50;
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #3498db;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .content-section h2 i {
+        color: #3498db;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1400px) {
+        .sustainability-wrapper {
+            grid-template-columns: 1fr 300px;
+        }
+
+        .side-nav {
+            display: none;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .sustainability-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        .section-content {
+            grid-template-columns: 1fr;
+        }
+
+        .initiatives-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .sdgs-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .terminology-sidebar {
+            position: fixed;
+            right: -32%;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            transition: 0.3s;
+            z-index: 1001;
+            overflow-y: auto;
+        }
+
+        .terminology-sidebar.active {
+            right: 0;
+        }
+
+        .terminology-toggle {
+            display: flex;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #3498db;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1;
+            cursor: pointer;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .sustainability-container {
+            padding: 10px;
+        }
+
+        .content-section {
+            padding: 20px;
+        }
+
+        .initiative-grid, .program-grid, .metric-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .sdgs-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .terminology-sidebar {
+            width: 280px;
+        }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .content-section {
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    /* Hover Effects */
+    .nav-link:hover {
+        background: #e3f2fd;
+        color: #3498db;
+        transform: translateX(5px);
+    }
+
+    .term-item:hover {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 10px;
+        margin: -10px;
+        transition: all 0.3s ease;
+    }
+
+    /* Thêm phần responsive mới */
+    @media screen and (max-width: 1200px) {
+        .sustainability-wrapper {
+            grid-template-columns: 250px 1fr 250px;
+            gap: 20px;
+        }
+
+        .term-item {
+            padding: 12px;
+        }
+
+        .term-item h4 {
+            font-size: 1rem;
+        }
+
+        .term-item p {
+            font-size: 0.9rem;
+        }
+    }
+
+    @media screen and (max-width: 992px) {
+        .sustainability-wrapper {
+            grid-template-columns: 1fr;
+        }
+
+        .terminology-sidebar {
+            position: relative;
+            top: 0;
+            max-height: none;
+            margin-top: 30px;
+        }
+
+        /* Chuyển đổi layout sang dạng accordion trên mobile */
+        .term-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .term-item {
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .term-item h4 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .term-item h4::after {
+            content: '\f107';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+        }
+
+        .term-item.active h4::after {
+            transform: rotate(180deg);
+        }
+
+        .term-item p {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            margin: 0;
+        }
+
+        .term-item.active p {
+            max-height: 200px;
+            margin-top: 10px;
+        }
+    }
+
+    @media screen and (max-width: 768px) {
+        .sustainability-container {
+            padding: 10px;
+        }
+
+        .terminology-sidebar {
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .term-item {
+            padding: 10px;
+        }
+
+        .term-item h4 {
+            font-size: 0.95rem;
+        }
+
+        .term-item p {
+            font-size: 0.85rem;
+        }
+    }
+
+    /* Thêm animation cho mobile */
+    @keyframes slideDown {
+        from { max-height: 0; }
+        to { max-height: 200px; }
+    }
+
+    @keyframes slideUp {
+        from { max-height: 200px; }
+        to { max-height: 0; }
+    }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="padding: 0px;">
+            <div class="hamburger" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <div class="desktop-menu">
+                <ul id="nav-menu">
+                    <li class="list" aria-haspopup="true" tabindex="0">
+                        <a id="service">Service </a>
+                        <div class="submenu">
+                            <div class="submenu-container">
+                                <!-- Phương pháp vận chuyển -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Transport.html">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Transportation Methods</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Transport.html#section1">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Road Transport</span>
+                                        </a>
+                                        <a href="Transport.html#section2">
+                                            <i class="fas fa-ship"></i>
+                                            <span>Maritime Transport</span>
+                                        </a>
+                                        <a href="Transport.html#section3">
+                                            <i class="fas fa-plane"></i>
+                                            <span>Air Transport</span>
+                                        </a>
+                                        <a href="Transport.html#section4">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            <span>Multimodal Transport</span>
+                                        </a>
+                                        <a href="Transport.html#section5">
+                                            <i class="fas fa-train"></i>
+                                            <span>Cross-Border Transport</span>
+                                        </a>
+                                        <a href="Transport.html#section6">
+                                            <i class="fas fa-box-open"></i>
+                                            <span>Door-to-Door Service</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Logistics và chuỗi cung ứng -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Logistic.html">
+                                            <i class="fas fa-network-wired"></i>
+                                            <span>Logistics & Supply Chain</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Logistic.html#section1">
+                                            <i class="fas fa-warehouse"></i>
+                                            <span>Warehouse & Distribution</span>
+                                        </a>
+                                        <a href="Logistic.html#section2">
+                                            <i class="fas fa-boxes"></i>
+                                            <span>Supply Chain Management</span>
+                                        </a>
+                                        <a href="Logistic.html#section3">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <span>Customs Clearance</span>
+                                        </a>
+                                        <a href="Logistic.html#section4">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Logistics Insurance</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Lĩnh vực -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Industry.html">
+                                            <i class="fas fa-industry"></i>
+                                            <span>Industry</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Food & Beverage</span>
+                                        </a>
+                                        <a href="Industry.html#section2">
+                                            <i class="fas fa-tshirt"></i>
+                                            <span>Retail & Fashion</span>
+                                        </a>
+                                        <a href="Industry.html#section3">
+                                            <i class="fas fa-car"></i>
+                                            <span>Automotive & Parts</span>
+                                        </a>
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>Technology & Electronics</span>
+                                        </a>
+                                        <a href="Industry.html#section6">
+                                            <i class="fas fa-prescription-bottle-alt"></i>
+                                            <span>Pharmaceuticals & Healthcare</span>
+                                        </a>
+                                        <a href="Industry.html#section7">
+                                            <i class="fas fa-hard-hat"></i>
+                                            <span>Construction & Industry</span>
+                                        </a>
+                                        <a href="Industry.html#section9">
+                                            <i class="fas fa-oil-can"></i>
+                                            <span>Oil & Energy</span>
+                                        </a>
+                                        <a href="Industry.html#section10">
+                                            <i class="fas fa-vial"></i>
+                                            <span>Chemicals & Materials</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li><span>|</span>
+                    <a href="About.html">About</a><span>|</span>
+                    <a href="Sustainability.html">Sustainability</a><span>|</span>
+                    <a href="News.html">News</a><span>|</span>
+                    <a href="Contact.html">Support</a><span>|</span>
+                    <a href="Home.html" style="padding: 5px;padding-left: 20px; color: orange;"><span class="flag-icon flag-icon-vn"></span></a>
+                    <a href="Home(ENG).html" style="padding: 5px;"><span class="flag-icon flag-icon-us"></span></a>
+                </ul>
+            </div>
+            <div class="mobile-menu-container">
+                <div class="mobile-menu" id="main-menu">
+                    <ul class="menu-list">
+                        <li class="has-submenu"></li>
+                            <a href="#" class="service-link">
+                                Service
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="Sustainability.html">Sustainability</a></li>
+                        <li><a href="News.html">News</a></li>
+                        <li><a href="Contact.html">Support</a></li>
+                    </ul>
+                </div>
+                <div class="mobile-submenu" id="service-menu">
+                    <div class="submenu-header">
+                        <a href="#" class="back-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            Back
+                        </a>
+                        <span>Service</span>
+                    </div>
+                    <ul class="submenu-list">
+                        <li><a href="Transport.html" style="font-size: 20px; color: blue;">Phương pháp vận chuyển</a></li>
+                        <li><a href="Transport.html#section1">Road Transport</a></li>
+                        <li><a href="Transport.html#section2">Maritime Transport</a></li>
+                        <li><a href="Transport.html#section3">Air Transport</a></li>
+                        <li><a href="Transport.html#section4">Multimodal Transport</a></li>
+                        <li><a href="Transport.html#section5">Cross-Border Transport</a></li>
+                        <li><a href="Transport.html#section6">Door-to-Door Service</a></li>
+                        
+                        <li><a href="Logistic.html" style="font-size: 20px; color: blue;">Logistics & Supply Chain</a></li>
+                        <li><a href="Logistic.html#section1">Warehouse & Distribution</a></li>
+                        <li><a href="Logistic.html#section2">Supply Chain Management</a></li>
+                        <li><a href="Logistic.html#section3">Customs Clearance</a></li>
+                        <li><a href="Logistic.html#section4">Logistics Insurance</a></li>
+                        
+                        <li><a href="Industry.html" style="font-size: 20px; color: blue;">Industry</a></li>
+                        <li><a href="Industry.html#section1">Food & Beverage</a></li>
+                        <li><a href="Industry.html#section2">Retail & Fashion</a></li>
+                        <li><a href="Industry.html#section3">Automotive & Parts</a></li>
+                        <li><a href="Industry.html#section4">Technology & Electronics</a></li>
+                        <li><a href="Industry.html#section6">Pharmaceuticals & Healthcare</a></li>
+                        <li><a href="Industry.html#section7">Construction & Industry</a></li>
+                        <li><a href="Industry.html#section9">Oil & Energy</a></li>
+                        <li><a href="Industry.html#section10">Chemicals & Materials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
+            Sustainability
+        </div>
+        <div class="sustainability-container">
+            <div class="sustainability-wrapper">
+                <!-- Side Navigation -->
+                <nav class="side-nav">
+                    <h3>Sustainability</h3>
+                    <ul class="nav-list">
+                        <li><a href="#environmental" class="nav-link">
+                            <i class="fas fa-leaf"></i>
+                            Environment
+                        </a></li>
+                        <li><a href="#social" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            Social
+                        </a></li>
+                        <li><a href="#economic" class="nav-link">
+                            <i class="fas fa-chart-line"></i>
+                            Economic
+                        </a></li>
+                        <li><a href="#initiatives" class="nav-link">
+                            <i class="fas fa-lightbulb"></i>
+                            Initiatives
+                        </a></li>
+                        <li><a href="#goals" class="nav-link">
+                            <i class="fas fa-bullseye"></i>
+                            SDGs Goals
+                        </a></li>
+                    </ul>
+                </nav>
+        
+                <!-- Main Content -->
+                <div class="content-sections">
+                    <!-- Environmental Section -->
+                    <section id="environmental" class="content-section">
+                        <h2><i class="fas fa-leaf"></i> Environmental Protection</h2>
+                        <div class="section-content">
+                            <div class="image-content">
+                                <img src="images/environmental.jpg" alt="Environmental Protection">
+                            </div>
+                            <div class="text-content">
+                                <h3>Environmental Commitment</h3>
+                                <ul>
+                                    <li>Reduce CO2 emissions in transportation</li>
+                                    <li>Use renewable energy in operations</li>
+                                    <li>Optimize transportation routes</li>
+                                    <li>Apply green technology in warehouses</li>
+                                </ul>
+                                <div class="eco-initiatives">
+                                        <h4>Green Initiatives</h4>
+                                    <div class="initiative-grid">
+                                        <div class="initiative-item">
+                                            <i class="fas fa-recycle"></i>
+                                            <span>Recycling</span>
+                                        </div>
+                                        <div class="initiative-item">
+                                            <i class="fas fa-solar-panel"></i>
+                                            <span>Solar Energy</span>
+                                        </div>
+                                        <div class="initiative-item">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Electric Vehicles</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <!-- Social Section -->
+                    <section id="social" class="content-section">
+                        <h2><i class="fas fa-users"></i> Social Responsibility</h2>
+                        <div class="section-content">
+                            <div class="image-content">
+                                <img src="images/social.jpg" alt="Social Responsibility">
+                            </div>
+                            <div class="text-content">
+                                <h3>Community Contribution</h3>
+                                <ul>
+                                    <li>Create job opportunities for local communities</li>
+                                    <li>Train and develop employees</li>
+                                    <li>Support community projects</li>
+                                    <li>Ensure occupational safety</li>
+                                </ul>
+                                <div class="social-programs">
+                                    <h4>Social Programs</h4>
+                                    <div class="program-grid">
+                                        <div class="program-item">
+                                            <i class="fas fa-graduation-cap"></i>
+                                            <span>Scholarships</span>
+                                        </div>
+                                        <div class="program-item">
+                                            <i class="fas fa-hands-helping"></i>
+                                            <span>Charity</span>
+                                        </div>
+                                        <div class="program-item">
+                                            <i class="fas fa-heart"></i>
+                                            <span>Volunteering</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <!-- Economic Section -->
+                    <section id="economic" class="content-section">
+                            <h2><i class="fas fa-chart-line"></i> Economic Development</h2>
+                        <div class="section-content">
+                            <div class="image-content">
+                                <img src="images/economic.jpg" alt="Economic Development">
+                            </div>
+                            <div class="text-content">
+                                <h3>Tăng Trưởng Bền Vững</h3>
+                                <ul>
+                                    <li>Invest in green technology</li>
+                                    <li>Optimize operational costs</li>
+                                    <li>Develop sustainable partnerships</li>
+                                    <li>Effective risk management</li>
+                                </ul>
+                                <div class="economic-metrics">
+                                    <h4>Chỉ Số Kinh Tế</h4>
+                                    <div class="metric-grid">
+                                        <div class="metric-item">
+                                            <i class="fas fa-percentage"></i>
+                                            <span>Green ROI</span>
+                                        </div>
+                                        <div class="metric-item">
+                                            <i class="fas fa-coins"></i>
+                                            <span>Savings</span>
+                                        </div>
+                                        <div class="metric-item">
+                                            <i class="fas fa-handshake"></i>
+                                            <span>Partnerships</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <!-- Initiatives Section -->
+                    <section id="initiatives" class="content-section">
+                        <h2><i class="fas fa-lightbulb"></i> Sustainable Initiatives</h2>
+                        <div class="initiatives-grid">
+                            <div class="initiative-card">
+                                <i class="fas fa-solar-panel"></i>
+                                <h3>Renewable Energy</h3>
+                                <p>Install solar energy panels at warehouses</p>
+                            </div>
+                            <div class="initiative-card">
+                                <i class="fas fa-truck-moving"></i>
+                                <h3>Green Transportation</h3>
+                                <p>Switch to electric and hybrid trucks</p>
+                            </div>
+                            <div class="initiative-card">
+                                <i class="fas fa-recycle"></i>
+                                <h3>Zero Waste</h3>
+                                <p>Reduce waste in logistics operations</p>
+                            </div>
+                            <div class="initiative-card">
+                                <i class="fas fa-tree"></i>
+                                <h3>Tree Planting</h3>
+                                <p>Annual tree planting program</p>
+                            </div>
+                        </div>
+                    </section>
+        
+                    <!-- SDGs Goals Section -->
+                    <section id="goals" class="content-section">
+                        <h2><i class="fas fa-bullseye"></i> Mục Tiêu Phát Triển Bền Vững</h2>
+                        <div class="sdgs-grid">
+                            <div class="sdg-item">
+                                <img src="images/sdg-13.jpg" alt="SDG 13">
+                                <h3>Climate Action</h3>
+                            </div>
+                            <div class="sdg-item">
+                                <img src="images/sdg-11.png" alt="SDG 11">
+                                <h3>Sustainable Cities</h3>
+                            </div>
+                            <div class="sdg-item">
+                                <img src="images/sdg-12.png" alt="SDG 12">
+                                <h3>Responsible Consumption and Production</h3>
+                            </div>
+                            <div class="sdg-item">
+                                <img src="images/sdg-8.png" alt="SDG 8">
+                                <h3>Sustainable Employment</h3>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+        
+                <!-- Terminology Sidebar -->
+                <div class="terminology-sidebar">
+                    <h3>Sustainable Development Terminology</h3>
+                    <div class="term-container">
+                        <div class="term-content">
+                            <div class="term-item">
+                                <h4>ESG</h4>
+                                <p>Environmental, Social, and Governance - Criteria for sustainable development</p>
+                            </div>
+                            <div class="term-item">
+                                <h4>Carbon Footprint</h4>
+                                <p>Carbon footprint - The amount of CO2 emitted from logistics activities</p>
+                            </div>
+                            <div class="term-item">
+                                <h4>SDGs</h4>
+                                <p>Sustainable Development Goals - The goals of the United Nations for sustainable development</p>
+                            </div>
+                            <div class="term-item">
+                                <h4>Green Logistics</h4>
+                                <p>Green Logistics - Logistics that is environmentally friendly</p>
+                            </div>
+                            <div class="term-item">
+                                <h4>Circular Economy</h4>
+                                <p>Circular Economy - Reuse and recycle</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <button id="scrollTopButton" title="Lên đầu trang">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+        <footer class="main-footer">
+            <div class="container" style="background: white;">
+                <div class="footer-grid">
+                <!-- Company Info -->
+                <div class="footer-section">
+                    <h3>LOGISTICS GROUP</h3>
+                    <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh City</p>
+                        <p><i class="fas fa-phone"></i></p>
+                        <p><i class="fas fa-envelope"></i></p>
+                        <p><i class="fas fa-globe"></i> </p>
+                    </div>
+                </div>
+        
+                <!-- Map Section -->
+                <div class="footer-section">
+                    <h3>COMPANY LOCATION</h3>
+                    <h2>Find Us On The Map</h2>
+                    <div class="map-container">
+                        <img src="images/world-map.png" alt="World Map" class="world-map">
+                        <div class="map-marker vietnam"></div>
+                    </div>
+                </div>
+        
+                <!-- Connect Section -->
+                <div class="footer-section">
+                    <h3>CONNECT WITH US</h3>
+                    <h2>Social Media</h2>
+                    <div class="social-links">
+                        <a href="#" class="social-btn facebook" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-btn tiktok" aria-label="TikTok">
+                        <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="social-btn youtube" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-btn instagram" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                        </a>
+    
+                    </div>
+                    <a href="{link}" title="Chứng nhận Tick Đỏ ECheck Verified" target="_blank"><img style="height: 48px; width: auto;" src="https://echeck.numbala.com/imgs/echeck1.svg" alt="Chứng nhận Tick Đỏ ECheck Verified"></a>
+                </div>
+            </div>
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-bottom-content">
+                        <!-- Copyright Section -->
+                        <div class="copyright">
+                            <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
+                            <p>&copy; 2024 LogiTrack. All rights reserved.</p>
+                        </div>
+    
+                        <!-- Policies Section -->
+                        <div class="footer-policies">
+                            <ul>
+                                <li><a href="privacy.html">Chính sách bảo mật</a></li>
+                                <span>|</span>
+                                <li><a href="terms.html">Điều khoản sử dụng</a></li>
+                                <span>|</span>
+                                <li><a href="cookie-policy.html">Chính sách Cookie</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.innerWidth <= 992) {
+            const termItems = document.querySelectorAll('.term-item');
+            
+            termItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // Toggle active class
+                    const isActive = this.classList.contains('active');
+                    
+                    // Close all items
+                    termItems.forEach(otherItem => {
+                        otherItem.classList.remove('active');
+                    });
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        this.classList.add('active');
+                    }
+                });
+            });
+        }
+    });
+
+    // Thêm event listener cho resize
+    window.addEventListener('resize', function() {
+        const termItems = document.querySelectorAll('.term-item');
+        
+        if (window.innerWidth <= 992) {
+            // Mobile behavior
+            termItems.forEach(item => {
+                if (!item.hasListener) {
+                    item.addEventListener('click', function() {
+                        const isActive = this.classList.contains('active');
+                        termItems.forEach(otherItem => {
+                            otherItem.classList.remove('active');
+                        });
+                        if (!isActive) {
+                            this.classList.add('active');
+                        }
+                    });
+                    item.hasListener = true;
+                }
+            });
+        } else {
+            // Desktop behavior
+            termItems.forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+    });
+    </script>
+</body>
+</html>
