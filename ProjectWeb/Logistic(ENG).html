@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logistics</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
     <script lang="javascript" src="java/java.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="css/styles.css" type="text/css" rel="stylesheet"/>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         
         /* Biến màu */
@@ -19,10 +20,6 @@
             --primary-color: #2c3e50;
             --accent-color: #3498db;
             --hover-color: #2980b9;
-            --bg-light: #f8f9fa;
-            --text-dark: #2c3e50;
-            --text-light: #6c757d;
-            --border-color: #e9ecef;
         }
         /* Layout chính */
         .logistics-wrapper {
@@ -30,22 +27,20 @@
             grid-template-columns: 280px 1fr 300px;
             gap: 30px;
             padding: 20px;
-            max-width: 1800px;
+            max-width: 1600px;
             margin: 0 auto;
-            background: var(--bg-light);
+            background: #f8f9fa;
         }
 
         /* Side Navigation */
         .side-nav {
-            position: sticky;
-            top: calc(var(--header-height) + 20px);
-            height: calc(100vh - var(--header-height) - 40px);
             background: white;
             border-radius: 12px;
             padding: 25px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            overflow-y: auto;
-            align-self: start;
+            position: sticky;
+            top: 80px;
+            height: fit-content;
         }
 
         .nav-title {
@@ -103,8 +98,10 @@
 
         /* Main Content */
         .content-sections {
-            padding: 0;
-            margin: 0;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
         }
 
         .content-section {
@@ -159,42 +156,79 @@
 
         /* Right Sidebar - Terminology */
         .terminology-sidebar {
-            position: sticky;
-            top: calc(var(--header-height) + 20px);
-            height: calc(100vh - var(--header-height) - 40px);
             background: white;
-            padding: 25px;
             border-radius: 12px;
+            padding: 25px 25px 25px 20px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 100px);
             overflow-y: auto;
-            align-self: start;
         }
 
+        /* Custom Scrollbar cho Webkit browsers (Chrome, Safari, etc) */
+        .terminology-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .terminology-sidebar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+            margin: 5px 0;
+        }
+
+        .terminology-sidebar::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .terminology-sidebar::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Firefox scrollbar */
+        .terminology-sidebar {
+            scrollbar-width: thin;
+            scrollbar-color: #888 #f1f1f1;
+        }
+
+        /* Term items styling */
         .term-item {
             background: var(--bg-light);
             border-radius: 10px;
             padding: 20px;
             margin-bottom: 20px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
         }
 
-        .term-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border-color);
+        .term-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .term-header i {
-            font-size: 20px;
-            color: var(--accent-color);
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .terminology-sidebar {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 300px;
+                height: 100vh;
+                transition: 0.3s;
+                z-index: 1001;
+                padding: 20px 15px;
+            }
+
+            .terminology-sidebar.active {
+                right: 0;
+            }
         }
 
-        .term-content {
-            font-size: 14px;
-            line-height: 1.6;
+        @media (max-width: 768px) {
+            .terminology-sidebar {
+                width: 280px;
+            }
         }
 
         /* Scrollbar Styling */
@@ -215,30 +249,81 @@
         }
 
         /* Responsive Design */
-        @media (max-width: 1400px) {
+        @media (max-width: 992px) {
             .logistics-wrapper {
-                grid-template-columns: 250px 1fr 280px;
+                grid-template-columns: 1fr 300px; /* Ẩn nav, chỉ còn content và terminology */
+            }
+
+            .side-nav {
+                display: none; /* Ẩn thanh nav */
             }
         }
 
-        @media (max-width: 1200px) {
+        @media (max-width: 992px) {
             .logistics-wrapper {
-                grid-template-columns: 250px 1fr;
+                grid-template-columns: 1fr; /* Chuyển sang 1 cột */
+                gap: 20px;
             }
+
             .terminology-sidebar {
+                position: fixed;
+                right: -300px;
+                top: 0;
+                width: 300px;
+                height: 100vh;
+                transition: 0.3s;
+                z-index: 1001;
+                overflow-y: auto;
+            }
+
+            .terminology-sidebar.active {
+                right: 0;
+            }
+
+            /* Nút toggle cho terminology */
+            .terminology-toggle {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background: #1976d2;
+                color: white;
+                padding: 15px;
+                border-radius: 50%;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+                z-index: 1000;
+                cursor: pointer;
+            }
+
+            /* Overlay khi mở terminology */
+            .terminology-overlay {
                 display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.5);
+                backdrop-filter: blur(2px);
+                z-index: 1000;
+            }
+
+            .terminology-overlay.active {
+                display: block;
             }
         }
 
         @media (max-width: 768px) {
             .logistics-wrapper {
-                grid-template-columns: 1fr;
+                padding: 10px;
             }
-            .side-nav {
-                display: none;
-            }
+
             .content-sections {
-                padding: 0;
+                padding: 15px;
+            }
+
+            .terminology-sidebar {
+                width: 280px;
             }
         }
 
@@ -276,122 +361,258 @@
             transform: scale(1.1);
             transition: transform 0.3s ease;
         }
+
+        /* Icons Colors */
+        .feature i.fa-clipboard-check,
+        .feature i.fa-file-signature,
+        .feature i.fa-balance-scale,
+        .feature i.fa-umbrella,
+        .feature i.fa-handshake,
+        .feature i.fa-truck,
+        .feature i.fa-warehouse,
+        .feature i.fa-box,
+        .feature i.fa-chart-line,
+        .feature i.fa-globe {
+            color: var(--accent-color);
+        }
+
+        /* Icon Colors cho Navigation */
+        .nav-link i.fa-warehouse,
+        .nav-link i.fa-boxes,
+        .nav-link i.fa-clipboard-check,
+        .nav-link i.fa-shield-alt,
+        .nav-link i.fa-truck-moving,
+        .nav-link i.fa-ship,
+        .nav-link i.fa-plane,
+        .nav-link i.fa-exchange-alt,
+        .nav-link i.fa-train,
+        .nav-link i.fa-box-open {
+            color: var(--accent-color);
+        }
+
+        /* Icon Colors cho Term Items */
+        .term-item i.fa-truck-loading,
+        .term-item i.fa-dollar-sign,
+        .term-item i.fa-shield-alt,
+        .term-item i.fa-box-open,
+        .term-item i.fa-user-tie,
+        .term-item i.fa-user,
+        .term-item i.fa-ship,
+        .term-item i.fa-plane,
+        .term-item i.fa-truck,
+        .term-item i.fa-warehouse {
+            color: var(--accent-color);
+            margin-right: 8px;
+        }
+
+        /* Hover Effects */
+        .feature:hover i,
+        .nav-link:hover i,
+        .term-item:hover i {
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* Active State */
+        .nav-link.active i {
+            color: white;
+        }
+        
     </style>
 </head>
 <body>
     <div class="container" style="background: #f8f9fa;">
-        <div class="header" style="padding: 0;">
+        <div class="header" style="padding: 0px;">
+            <div class="hamburger" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
             <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
-            <ul class="menu">
-                <a href="Home.html">Home</a><span>|</span>
-                <a href="About.html">About</a><span>|</span>
-                <li class="list" aria-haspopup="true" tabindex="0">
-                    <a id="service">Service 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"/>
-                        </svg>
-                    </a>
-                    <div class="submenu">
-                        <div class="submenu-container">
-                            <!-- Phương pháp vận chuyển -->
-                            <div class="submenu-group">
-                                <div class="submenu-header">
-                                    <i class="fas fa-truck-moving"></i>
-                                    <span>Transport</span>
+            <div class="desktop-menu">
+                <ul id="nav-menu">
+                    <li class="list" aria-haspopup="true" tabindex="0">
+                        <a id="service">Service </a>
+                        <div class="submenu">
+                            <div class="submenu-container">
+                                <!-- Phương pháp vận chuyển -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Transport.html">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Transportation Methods</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Transport.html#section1">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Road Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section2">
+                                            <i class="fas fa-ship"></i>
+                                            <span>Maritime Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section3">
+                                            <i class="fas fa-plane"></i>
+                                            <span>Air Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section4">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            <span>Multimodal Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section5">
+                                            <i class="fas fa-train"></i>
+                                            <span>Cross-border Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section6">
+                                            <i class="fas fa-box-open"></i>
+                                            <span>Door-to-Door Service</span>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="submenu-items">
-                                    <a href="Transport.html#section1">
-                                        <i class="fas fa-truck"></i>
-                                        <span>Road Transport</span>
-                                    </a>
-                                    <a href="Transport.html#section2">
-                                        <i class="fas fa-ship"></i>
-                                        <span>Sea Transport</span>
-                                    </a>
-                                    <a href="Transport.html#section3">
-                                        <i class="fas fa-plane"></i>
-                                        <span>Air Transport</span>
-                                    </a>
-                                    <a href="Transport.html#section4">
-                                        <i class="fas fa-exchange-alt"></i>
-                                        <span>Multimodal Transport</span>
-                                    </a>
+    
+                                <!-- Logistics và chuỗi cung ứng -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Logistic.html">
+                                            <i class="fas fa-network-wired"></i>
+                                            <span>Logistics & Supply Chain</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Logistic.html#section1">
+                                            <i class="fas fa-warehouse"></i>
+                                            <span>Warehouse & Distribution</span>
+                                        </a>
+                                        <a href="Logistic.html#section2">
+                                            <i class="fas fa-boxes"></i>
+                                            <span>Supply Chain Management</span>
+                                        </a>
+                                        <a href="Logistic.html#section3">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <span>Customs Clearance</span>
+                                        </a>
+                                        <a href="Logistic.html#section4">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Logistics Insurance</span>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <!-- Logistics và chuỗi cung ứng -->
-                            <div class="submenu-group">
-                                <div class="submenu-header">
-                                    <i class="fas fa-network-wired"></i>
-                                    <span>Logistics & Supply Chain</span>
-                                </div>
-                                <div class="submenu-items">
-                                    <a href="Logistic.html#section1">
-                                        <i class="fas fa-warehouse"></i>
-                                        <span>Warehouse & Distribution</span>
-                                    </a>
-                                    <a href="Logistic.html#section2">
-                                        <i class="fas fa-boxes"></i>
-                                        <span>Supply Chain Management</span>
-                                    </a>
-                                    <a href="Logistic.html#section3">
-                                        <i class="fas fa-clipboard-check"></i>
-                                        <span>Customs Clearance</span>
-                                    </a>
-                                    <a href="Logistic.html#section4">
-                                        <i class="fas fa-shield-alt"></i>
-                                        <span>Logistics Insurance</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- Lĩnh vực -->
-                            <div class="submenu-group">
-                                <div class="submenu-header">
-                                    <i class="fas fa-industry"></i>
-                                    <span>Industry</span>
-                                </div>
-                                <div class="submenu-items">
-                                    <a href="Industry.html#section1">
-                                        <i class="fas fa-microchip"></i>
-                                        <span>Technology</span>
-                                    </a>
-                                    <a href="Industry.html#section2">
-                                        <i class="fas fa-tshirt"></i>
-                                        <span>Fashion</span>
-                                    </a>
-                                    <a href="Industry.html#section3">
-                                        <i class="fas fa-car"></i>
-                                        <span>Automotive & Parts</span>
-                                    </a>
-                                    <a href="Industry.html#section4">
-                                        <i class="fas fa-shopping-basket"></i>
-                                        <span>Retail & FMCG</span>
-                                    </a>
+    
+                                <!-- Lĩnh vực -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Industry.html">
+                                            <i class="fas fa-industry"></i>
+                                            <span>Industry</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Food & Beverage</span>
+                                        </a>
+                                        <a href="Industry.html#section2">
+                                            <i class="fas fa-tshirt"></i>
+                                            <span>Retail & Fashion</span>
+                                        </a>
+                                        <a href="Industry.html#section3">
+                                            <i class="fas fa-car"></i>
+                                            <span>Automotive & Parts</span>
+                                        </a>
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>Technology & Electronics</span>
+                                        </a>
+                                        <a href="Industry.html#section6">
+                                            <i class="fas fa-prescription-bottle-alt"></i>
+                                            <span>Pharmaceuticals & Healthcare</span>
+                                        </a>
+                                        <a href="Industry.html#section7">
+                                            <i class="fas fa-hard-hat"></i>
+                                            <span>Construction & Industry</span>
+                                        </a>
+                                        <a href="Industry.html#section9">
+                                            <i class="fas fa-oil-can"></i>
+                                            <span>Oil & Energy</span>
+                                        </a>
+                                        <a href="Industry.html#section10">
+                                            <i class="fas fa-vial"></i>
+                                            <span>Chemicals & Materials</span>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </li><span>|</span>
+                    <a href="About.html">About</a><span>|</span>
+                    <a href="Sustainability.html">Sustainability</a><span>|</span>
+                    <a href="News.html">News</a><span>|</span>
+                    <a href="Contact.html">Contact</a><span>|</span>
+                    <a href="Home.html" style="padding: 5px;padding-left: 20px; color: orange;"><span class="flag-icon flag-icon-vn"></span></a>
+                    <a href="Home(ENG).html" style="padding: 5px;"><span class="flag-icon flag-icon-us"></span></a>
+                </ul>
+            </div>
+            <div class="mobile-menu-container">
+                <div class="mobile-menu" id="main-menu">
+                    <ul class="menu-list">
+                        <li class="has-submenu"></li>
+                            <a href="#" class="service-link">
+                                Service
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="Sustainability.html">Sustainability</a></li>
+                        <li><a href="News.html">News</a></li>
+                        <li><a href="Contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="mobile-submenu" id="service-menu">
+                    <div class="submenu-header">
+                        <a href="#" class="back-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            Back
+                        </a>
+                        <span>Service</span>
                     </div>
-                </li>
-                <span>|</span>
-                <a href="News.html">News</a><span>|</span>
-                <a href="Contact.html">Contact</a>
-            </ul>
-            <div>
-                <a href="Logistic.html" style="padding: 0; ">VIE</a>
-                <span>|</span>
-                <a href="Logistic(ENG).html" style="padding: 0;color: orange;">ENG</a>
+                    <ul class="submenu-list">
+                        <li><a href="Transport.html" style="font-size: 20px; color: blue;">Transportation Methods</a></li>
+                        <li><a href="Transport.html#section1">Road Transportation</a></li>
+                        <li><a href="Transport.html#section2">Maritime Transportation</a></li>
+                        <li><a href="Transport.html#section3">Air Transportation</a></li>
+                        <li><a href="Transport.html#section4">Multimodal Transportation</a></li>
+                        <li><a href="Transport.html#section5">Cross-border Transportation</a></li>
+                        <li><a href="Transport.html#section6">Door-to-Door Service</a></li>
+                        
+                        <li><a href="Logistic.html" style="font-size: 20px; color: blue;">Logistics & Supply Chain</a></li>
+                        <li><a href="Logistic.html#section1">Warehouse & Distribution</a></li>
+                        <li><a href="Logistic.html#section2">Supply Chain Management</a></li>
+                        <li><a href="Logistic.html#section3">Customs Clearance</a></li>
+                        <li><a href="Logistic.html#section4">Logistics Insurance</a></li>
+                        
+                        <li><a href="Industry.html" style="font-size: 20px; color: blue;">Industry</a></li>
+                        <li><a href="Industry.html#section1">Food & Beverage</a></li>
+                        <li><a href="Industry.html#section2">Retail & Fashion</a></li>
+                        <li><a href="Industry.html#section3">Automotive & Parts</a></li>
+                        <li><a href="Industry.html#section4">Technology & Electronics</a></li>
+                        <li><a href="Industry.html#section6">Pharmaceuticals & Healthcare</a></li>
+                        <li><a href="Industry.html#section7">Construction & Industry</a></li>
+                        <li><a href="Industry.html#section9">Oil & Energy</a></li>
+                        <li><a href="Industry.html#section10">Chemicals & Materials</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <img src="images/service.png" alt="Transport" style="width: 100%; height: 600px;">
+        <img src="images/th.png" alt="Transport" style="width: 100%; height: 600px;">
         <div class="overlay" style="height: 660px;"></div>
         <div style="font-size: 40px; padding: 30px; font-weight: bold; text-align: center; color: rebeccapurple;">
-            Logistics & Supply Chain
+                Logistics & Supply Chain
         </div>
         <div class="main-wrapper">
             <div class="logistics-wrapper">
                 <nav class="side-nav">
-                    <h3 class="nav-title">TRANSPORT</h3>
+                    <h3 class="nav-title">TRANSPORTATION METHODS</h3>
                     <ul class="nav-list">
                         <li class="nav-item">
                             <a href="#section1" class="nav-link active">
@@ -401,7 +622,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="#section2" class="nav-link">
-                                <i class="fas fa-link"></i>
+                                <i class="fas fa-boxes"></i>
                                 Supply Chain Management
                             </a>
                         </li>
@@ -427,10 +648,10 @@
                             <img src="images/warehouse.png" alt="Kho bãi hiện đại" class="section-image">
                             <div class="text-content">
                                 <h3>Modern Warehouse System</h3>
-                                <p>LogiTrack is proud to provide a state-of-the-art warehouse system, meeting all storage and distribution needs of businesses.</p>
+                                <p>LogiTrack proudly provides a state-of-the-art warehouse system, meeting all storage and distribution needs of businesses.</p>
                                 
                                 <div class="service-highlights">
-                                    <h4>Dịch vụ nổi bật</h4>
+                                    <h4>Featured Services</h4>
                                     <ul>
                                         <li>Cold Storage (-18°C to +25°C)</li>
                                         <li>Customs & CFS</li>
@@ -452,14 +673,14 @@
                                         <i class="fas fa-shield-alt"></i>
                                         <div class="feature-content">
                                             <h5>Optimal Security</h5>
-                                            <p>AI Cameras & 24/7 Security</p>
+                                            <p>AI Camera & 24/7 Security</p>
                                         </div>
                                     </div>
                                     <div class="feature">
                                         <i class="fas fa-box"></i>
                                         <div class="feature-content">
                                             <h5>Inventory Management</h5>
-                                            <p>Real-Time Tracking</p>
+                                            <p>Real-time Tracking</p>
                                         </div>
                                     </div>
                                 </div>
@@ -472,10 +693,10 @@
                             <img src="images/supply.png" alt="Quản lý chuỗi cung ứng" class="section-image">
                             <div class="text-content">
                                 <h3>Comprehensive Supply Chain Solutions</h3>
-                                <p>LogiTrack offers integrated supply chain management solutions, optimizing processes from raw materials to final consumption.</p>
+                                <p>We offer integrated supply chain management solutions, optimizing processes from raw materials to final consumption.</p>
 
                                 <div class="service-highlights">
-                                    <h4>Main Services</h4>
+                                    <h4>Featured Services</h4>
                                     <ul>
                                         <li>Optimize Production Processes</li>
                                         <li>Smart Inventory Management</li>
@@ -503,7 +724,7 @@
                                     <div class="feature">
                                         <i class="fas fa-sync"></i>
                                         <div class="feature-content">
-                                            <h5>System Integration</h5>
+                                            <h5>Integrated Systems</h5>
                                             <p>ERP, WMS, TMS</p>
                                         </div>
                                     </div>
@@ -517,16 +738,16 @@
                             <img src="images/lisence.png" alt="Thông quan Hải quan" class="section-image">
                             <div class="text-content">
                                 <h3>Professional Customs Clearance Services</h3>
-                                <p>LogiTrack provides comprehensive customs clearance services, ensuring your goods are cleared quickly and in full compliance with legal regulations.</p>
+                                <p>LogiTrack provides comprehensive customs clearance services, ensuring your goods are cleared quickly and compliant with all legal regulations.</p>
                                 
                                 <div class="service-highlights">
-                                    <h4>Main Services</h4>
+                                    <h4>Featured Services</h4>
                                     <ul>
-                                        <li>Consultation on Customs Procedures</li>
+                                        <li>Customs Advisory</li>
                                         <li>Electronic Customs Declaration</li>
                                         <li>HS Code Classification</li>
-                                        <li>Export/Import License</li>
-                                        <li>C/O Certificate, Special Permit</li>
+                                        <li>Import/Export License</li>
+                                        <li>C/O, Special Permit Certificate</li>
                                     </ul>
                                 </div>
 
@@ -541,14 +762,14 @@
                                     <div class="feature">
                                         <i class="fas fa-balance-scale"></i>
                                         <div class="feature-content">
-                                            <h5>Compliance with Regulations</h5>
+                                            <h5>Compliance</h5>
                                             <p>100% Compliance</p>
                                         </div>
                                     </div>
                                     <div class="feature">
                                         <i class="fas fa-clock"></i>
                                         <div class="feature-content">
-                                            <h5>Optimal Time</h5>
+                                            <h5>Time Optimization</h5>
                                             <p>Quick Clearance</p>
                                         </div>
                                     </div>
@@ -562,16 +783,16 @@
                             <img src="images/insurance.png" alt="Bảo hiểm Logistics" class="section-image">
                             <div class="text-content">
                                 <h3>Comprehensive Logistics Insurance Solutions</h3>
-                                <p>LogiTrack offers a wide range of insurance packages to protect your goods throughout the transportation and storage process.</p>
+                                <p>We offer a wide range of insurance packages to protect your goods throughout the transportation and storage process.</p>
 
                                 <div class="service-highlights">
-                                    <h4>Insurance Types</h4>
+                                    <h4>Featured Services</h4>
                                     <ul>
-                                        <li>Export/Import Cargo Insurance</li>
+                                        <li>Import/Export Cargo Insurance</li>
                                         <li>Domestic Transportation Insurance</li>
                                         <li>Warehouse Insurance</li>
                                         <li>Liability Insurance</li>
-                                        <li>Special Risk Insurance</li>
+                                        <li>Special Risks Insurance</li>
                                     </ul>
                                 </div>
 
@@ -613,19 +834,19 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
-                                <p>Selling goods at the seller's warehouse</p>
-                                <small>(Factory Price, Warehouse Price)</small>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
+                                <p>Sell goods at the seller's warehouse</p>
+                                <small>(FOB, CIF, CFR, DAP, DDP)</small>
                             </div>
                             <div class="party-section buyer">
                                 <h5><i class="fas fa-user"></i> BUYER:</h5>
                                 <ol>
-                                    <li>Transport from warehouse to port/airport</li>
-                                    <li>Customs clearance</li>
-                                    <li>Purchase shipping</li>
-                                    <li>Customs clearance</li>
-                                    <li>Transport from port/airport to buyer's warehouse</li>
-                                    <li>Insurance: buy or not buy</li>
+                                    <li>Transport goods from the warehouse to the port/airport</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Purchase shipping costs</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Transport goods from the port/airport to the buyer's warehouse</li>
+                                    <li>Insurance: purchase or not purchase</li>
                                 </ol>
                             </div>
                         </div>
@@ -638,20 +859,20 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
                                 <p>Deliver goods at the seller's port (on board ship/airplane)</p>
                                 <ol>
-                                    <li>Transport from warehouse/airport to port</li>
-                                    <li>Customs clearance</li>
+                                    <li>Transport goods from the warehouse/airport to the port</li>
+                                    <li>Customs clearance procedures</li>
                                 </ol>
                             </div>
                             <div class="party-section buyer">
-                                <h5><i class="fas fa-user"></i> NGƯỜI MUA:</h5>
+                                <h5><i class="fas fa-user"></i> BUYER:</h5>
                                 <ol>
-                                    <li>Purchase shipping from port/airport A-B</li>
-                                    <li>Customs clearance</li>
-                                    <li>Transport from port/airport to buyer's warehouse</li>
-                                    <li>Insurance: buy or not buy</li>
+                                    <li>Purchase shipping costs from port/airport A-B</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Transport goods from the port/airport to the warehouse</li>
+                                    <li>Insurance: purchase or not purchase</li>
                                 </ol>
                             </div>
                         </div>
@@ -664,20 +885,20 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
-                                <p>Deliver goods to buyer and include insurance</p>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
+                                <p>Deliver goods of the buyer and include insurance</p>
                                 <ol>
-                                    <li>Transport from warehouse to port/airport</li>
-                                    <li>Customs clearance</li>
-                                    <li>Purchase shipping</li>
+                                    <li>Transport goods from the warehouse to the port/airport</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Purchase shipping costs</li>
                                     <li>Insurance</li>
                                 </ol>
                             </div>
                             <div class="party-section buyer">
                                 <h5><i class="fas fa-user"></i> BUYER:</h5>
                                 <ol>
-                                    <li>Customs clearance</li>
-                                    <li>Transport from port/airport to buyer's warehouse</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Transport goods from the port/airport to the warehouse</li>
                                 </ol>
                             </div>
                         </div>
@@ -690,22 +911,21 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
-                                <p>Deliver goods and pay freight to destination port</p>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
+                                <p>Deliver goods and pay shipping costs to the destination port</p>
                                 <ol>
-                                    <li>Transport from warehouse to export port</li>
-                                    <li>Customs clearance</li>
-                                    <li>Freight charges at export port</li>
-                                    <li>International shipping</li>
+                                    <li>Transport goods from the warehouse to the port of export</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Shipping costs at the port of export</li>
                                 </ol>
                             </div>
                             <div class="party-section buyer">
                                 <h5><i class="fas fa-user"></i> BUYER:</h5>
                                 <ol>
-                                    <li>Insurance charges</li>
-                                    <li>Freight charges at destination port</li>
-                                    <li>Customs clearance</li>
-                                    <li>Transport from destination port to buyer's warehouse</li>
+                                    <li>Insurance costs</li>
+                                    <li>Unloading costs at the destination port</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Transport goods from the port to the warehouse</li>
                                 </ol>
                             </div>
                         </div>
@@ -718,21 +938,21 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> NGƯỜI BÁN:</h5>
-                                <p>Deliver goods to buyer's specified location</p>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
+                                <p>Deliver goods at the buyer's specified location</p>
                                 <ol>
-                                    <li>Transport from warehouse to export port</li>
-                                    <li>Customs clearance</li>
-                                    <li>International shipping</li>
-                                    <li>Transport to buyer's specified location</li>
+                                    <li>Transport goods from the warehouse to the port of export</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>International shipping costs</li>
+                                    <li>Transport to the specified location</li>
                                 </ol>
                             </div>
                             <div class="party-section buyer">
                                 <h5><i class="fas fa-user"></i> BUYER:</h5>
                                 <ol>
-                                    <li>Customs clearance</li>
-                                    <li>Import tax and fee</li>
-                                    <li>Freight charges at destination point</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Import taxes and fees</li>
+                                    <li>Unloading costs at the destination</li>
                                 </ol>
                             </div>
                         </div>
@@ -745,40 +965,42 @@
                         </div>
                         <div class="term-content">
                             <div class="party-section seller">
-                                <h5><i class="fas fa-user-tie"></i> BUYER:</h5>
-                                <p>Deliver goods and pay taxes at buyer's location</p>
+                                <h5><i class="fas fa-user-tie"></i> SELLER:</h5>
+                                <p>Deliver goods and pay taxes at the buyer's location</p>
                                 <ol>
                                     <li>All transportation costs</li>
-                                    <li>Customs clearance</li>
-                                    <li>Import tax and fee</li>
-                                    <li>Deliver goods to buyer's location</li>
+                                    <li>Customs clearance procedures</li>
+                                    <li>Import taxes and fees</li>
+                                    <li>Deliver goods to the buyer's location</li>
                                 </ol>
                             </div>
                             <div class="party-section buyer">
                                 <h5><i class="fas fa-user"></i> BUYER:</h5>
-                                <p>Receive goods at agreed location</p>
+                                <p>Receive goods at the agreed location</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <button onclick="scrollToTop()" id="scrollTopButton" title="Go to top">⬆</button>
-        <footer class="main-footer">
-            <div class="container" style="background: white;">
-                <div class="footer-grid">
-                <!-- Company Info -->
+                <button id="scrollTopButton" title="Lên đầu trang">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+            <footer class="main-footer">
+                <div class="container" style="background: white;">
+                    <div class="footer-grid">
+                    <!-- Company Info -->
                     <div class="footer-section">
                         <h3>LOGISTICS GROUP</h3>
                         <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
                         <div class="contact-info">
-                            <p><i class="fas fa-map-marker-alt"></i> Huynh Tan Phat, District 7, Ho Chi Minh City</p>
-                            <p><i class="fas fa-phone"></i> (+84) 899-498-589</p>
-                            <p><i class="fas fa-envelope"></i> nguyenhblam000@gmail.com</p>
-                            <p><i class="fas fa-globe"></i> https://github.com/baolamabcd13</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh City</p>
+                            <p><i class="fas fa-phone"></i></p>
+                            <p><i class="fas fa-envelope"></i></p>
+                            <p><i class="fas fa-globe"></i> </p>
                         </div>
                     </div>
-                <!-- Map Section -->
+            
+                    <!-- Map Section -->
                     <div class="footer-section">
                         <h3>COMPANY LOCATION</h3>
                         <h2>Find Us On The Map</h2>
@@ -787,64 +1009,108 @@
                             <div class="map-marker vietnam"></div>
                         </div>
                     </div>
-        
-                <!-- Connect Section -->
+            
+                    <!-- Connect Section -->
                     <div class="footer-section">
                         <h3>CONNECT WITH US</h3>
                         <h2>Social Media</h2>
                         <div class="social-links">
                             <a href="#" class="social-btn facebook" aria-label="Facebook">
-                                <i class="fab fa-facebook-f"></i>
+                            <i class="fab fa-facebook-f"></i>
                             </a>
                             <a href="#" class="social-btn twitter" aria-label="Twitter">
-                                <i class="fab fa-twitter"></i>
+                            <i class="fab fa-twitter"></i>
                             </a>
                             <a href="#" class="social-btn tiktok" aria-label="TikTok">
-                                <i class="fab fa-tiktok"></i>
+                            <i class="fab fa-tiktok"></i>
                             </a>
                             <a href="#" class="social-btn youtube" aria-label="YouTube">
-                                <i class="fab fa-youtube"></i>
+                            <i class="fab fa-youtube"></i>
                             </a>
                             <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
+                            <i class="fab fa-linkedin-in"></i>
                             </a>
                             <a href="#" class="social-btn instagram" aria-label="Instagram">
-                                <i class="fab fa-instagram"></i>
+                            <i class="fab fa-instagram"></i>
                             </a>
+        
+                        </div>
+                        <a href="{link}" title="Chứng nhận Tick Đỏ ECheck Verified" target="_blank"><img style="height: 48px; width: auto;" src="https://echeck.numbala.com/imgs/echeck1.svg" alt="Chứng nhận Tick Đỏ ECheck Verified"></a>
+                    </div>
+                </div>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <div class="container">
+                        <div class="footer-bottom-content">
+                            <!-- Copyright Section -->
+                            <div class="copyright">
+                                <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
+                                <p>&copy; 2024 LogiTrack. All rights reserved.</p>
+                            </div>
+        
+                            <!-- Policies Section -->
+                            <div class="footer-policies">
+                                <ul>
+                                    <li><a href="privacy.html">Privacy Policy</a></li>
+                                    <span>|</span>
+                                    <li><a href="terms.html">Terms of Use</a></li>
+                                    <span>|</span>
+                                    <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Footer Bottom -->
-            <div class="footer-bottom">
-                <div class="container">
-                    <div class="footer-bottom-content">
-                        <!-- Copyright Section -->
-                        <div class="copyright">
-                            <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
-                            <p>&copy; 2024 LogiTrack. All rights reserved.</p>
-                        </div>
-
-                        <!-- Policies Section -->
-                        <div class="footer-policies">
-                            <ul>
-                                <li><a href="privacy.html">Privacy Policy</a></li>
-                                <span>|</span>
-                                <li><a href="terms.html">Terms of Use</a></li>
-                                <span>|</span>
-                                <li><a href="service-policy.html">Service Policy</a></li>
-                                <span>|</span>
-                                <li><a href="shipping-policy.html">Shipping Policy</a></li>
-                                <span>|</span>
-                                <li><a href="payment-policy.html">Payment Policy</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     <script>
         AOS.init();
+    </script>
+    <button class="terminology-toggle" id="terminologyToggle">
+        <i class="fas fa-book"></i>
+    </button>
+    <div class="terminology-overlay" id="terminologyOverlay"></div>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const terminologyToggle = document.getElementById('terminologyToggle');
+        const terminologySidebar = document.querySelector('.terminology-sidebar');
+        const terminologyOverlay = document.getElementById('terminologyOverlay');
+
+        // Ẩn/hiện terminology sidebar
+        terminologyToggle.addEventListener('click', function() {
+            terminologySidebar.classList.toggle('active');
+            terminologyOverlay.classList.toggle('active');
+            document.body.style.overflow = terminologySidebar.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // Đóng khi click overlay
+        terminologyOverlay.addEventListener('click', function() {
+            terminologySidebar.classList.remove('active');
+            terminologyOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Đóng khi click vào link trong terminology
+        const termLinks = document.querySelectorAll('.terminology-sidebar a');
+        termLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 992) {
+                    terminologySidebar.classList.remove('active');
+                    terminologyOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+
+        // Xử lý resize window
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                terminologySidebar.classList.remove('active');
+                terminologyOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    });
     </script>
 </body>
 </html>
