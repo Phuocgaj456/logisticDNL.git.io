@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <script lang="javascript" src="java/java.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <style>
+        /* Contact Page Styles */
+        .contact-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Side Navigation */
+        .side-nav {
+            width: 250px;
+            flex-shrink: 0;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-section {
+            margin-bottom: 20px;
+        }
+
+        .nav-section h3 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #007bff;
+        }
+
+        .nav-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .nav-section ul li {
+            margin-bottom: 5px;
+        }
+
+        .nav-section ul a {
+            display: block;
+            padding: 8px 15px;
+            color: #666;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-section ul a:hover,
+        .nav-section ul a.active {
+            background: #007bff;
+            color: white;
+        }
+
+        /* Content Area */
+        .content-area {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .content-section {
+            display: none;
+            margin-bottom: 40px;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        /* Form Styles */
+        .contact-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .side-nav {
+                width: 100%;
+                position: static;
+            }
+
+            .document-grid,
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Additional styles for new sections */
+        .office-grid,
+        .support-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .office-card,
+        .support-card {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .office-card:hover,
+        .support-card:hover{
+            transform: translateY(-5px);
+        }
+
+        .support-card i,
+        .tool-card i {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .faq-item h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .document-card {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            height: 90%;
+        }
+
+        .document-card i {
+            font-size: 2.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .document-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .document-card p {
+            margin: 0 0 15px 0;
+            color: #666;
+        }
+
+        .document-info {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+            font-size: 0.9em;
+            color: #666;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .document-info span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .document-content {
+            flex: 1;
+        }
+
+        .download-btn-container {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .download-btn:hover {
+            background: #0056b3;
+        }
+        /* Tools Section Styles */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tool-card {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            height: 100%;
+        }
+
+        .tool-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tool-card i {
+            font-size: 2.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .tool-card h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .tool-card p {
+            margin: 0 0 15px 0;
+            color: #666;
+        }
+
+        /* Tool Features */
+        .tool-features {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .tool-features span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+        }
+
+        .tool-features i {
+            color: #28a745;
+            font-size: 1em;
+            margin: 0;
+        }
+
+        /* Tool Button Container */
+        .tool-btn-container {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+            transition: background 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .tool-btn:hover {
+            background: #0056b3;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tool-features {
+                align-items: center;
+            }
+        }
+
+        .guides-container {
+            margin-top: 20px;
+        }
+
+        .guide-item {
+            margin-bottom: 30px;
+        }
+
+        .guide-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .guide-content img {
+            max-width: 200px;
+            border-radius: 8px;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .office-grid,
+            .support-channels,
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .guide-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .guide-content img {
+                margin: 0 auto;
+            }
+        }
+
+        /* FAQ Styles */
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .toggle-icon {
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 15px 0;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .faq-answer ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        /* Shipping Methods */
+        .shipping-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .method-card {
+            text-align: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .method-card i {
+            font-size: 2em;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Adjustments */
+        @media screen and (max-width: 768px) {
+            .shipping-methods {
+                grid-template-columns: 1fr;
+            }
+
+            .document-info {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .tool-card {
+                text-align: center;
+            }
+
+            .tool-features {
+                align-items: center;
+            }
+        }
+
+        /* Payment Section Styles */
+        .payment-methods {
+            margin-bottom: 40px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .payment-card {
+            position: relative;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            overflow: hidden;
+            height: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .payment-card i {
+            font-size: 2.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .payment-card h4 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .payment-card p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        /* Logo Container Styles */
+        .bank-logos,
+        .card-logos,
+        .ewallet-logos {
+            position: absolute;
+            bottom: -100%; /* Ẩn logo bên dưới card */
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            transition: bottom 0.3s ease;
+        }
+
+        /* Logo Image Styles */
+        .bank-logos img,
+        .card-logos img,
+        .ewallet-logos img {
+            height: 30px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* Hover Effects */
+        .payment-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .payment-card:hover .bank-logos,
+        .payment-card:hover .card-logos,
+        .payment-card:hover .ewallet-logos {
+            bottom: 0; /* Hiện logo khi hover */
+        }
+
+        /* Responsive Adjustments */
+        @media screen and (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bank-logos img,
+            .card-logos img,
+            .ewallet-logos img {
+                height: 25px;
+            }
+        }
+
+        /* Service Fees Table */
+        .fee-table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .fee-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fee-table th,
+        .fee-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .fee-table thead {
+            background: #f8f9fa;
+        }
+
+        .fee-table th {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .fee-table tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .payment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bank-logos,
+            .card-logos,
+            .ewallet-logos {
+                flex-wrap: wrap;
+            }
+
+            .fee-table {
+                font-size: 14px;
+            }
+
+            .fee-table th,
+            .fee-table td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            .payment-card {
+                background: #2d2d2d;
+            }
+
+            .payment-card h4 {
+                color: #fff;
+            }
+
+            .payment-card p {
+                color: #ccc;
+            }
+
+            .fee-table {
+                background: #2d2d2d;
+            }
+
+            .fee-table th {
+                color: #fff;
+                background: #333;
+            }
+        }
+        /* Section Headers */
+        .content-section h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        /* Side Navigation Responsive */
+        @media screen and (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .side-nav {
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1001;
+                background: white;
+                transform: translateY(-100%); /* Ẩn nav ban đầu */
+                transition: transform 0.3s ease;
+            }
+
+            .side-nav.show {
+                transform: translateY(0); /* Hiện nav khi có class show */
+            }
+
+            
+
+            .nav-toggle i {
+                font-size: 20px;
+            }
+
+            /* Content Area Adjustment */
+            .content-area {
+                margin-top: 60px; /* Tạo khoảng cách cho nav toggle */
+            }
+        }
+
+        /* Nav Toggle Button */
+        .nav-toggle {
+            display: none; /* Ẩn mặc định trên desktop */
+            position: fixed;
+            top: 5%;
+            left: 20px; /* Đặt button bên trái */
+            z-index: 1002;
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-toggle:hover {
+            background: #0056b3;
+        }
+
+        .nav-toggle i {
+            font-size: 20px;
+        }
+
+        /* Side Navigation Responsive */
+        @media screen and (max-width: 768px) {
+            .contact-container {
+                flex-direction: column;
+                padding: 10px;
+                margin-top: 60px; /* Tạo khoảng cách cho nav toggle */
+            }
+
+            .nav-toggle {
+                display: block; /* Hiện button trên mobile */
+            }
+
+            .side-nav {
+                width: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1001;
+                background: white;
+                padding: 20px;
+                padding-top: 60px; /* Tạo khoảng cách cho nav toggle */
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                transform: translateX(-100%); /* Ẩn nav sang trái */
+                transition: transform 0.3s ease;
+                height: 100vh; /* Chiều cao full màn hình */
+                overflow-y: auto; /* Cho phép scroll nếu nội dung dài */
+            }
+
+            .side-nav.show {
+                transform: translateX(0); /* Hiện nav từ trái sang */
+            }
+
+            /* Điều chỉnh header để không bị che bởi nav */
+            .header {
+                padding-left: 60px !important; /* Tạo khoảng cách cho button */
+            }
+
+            /* Điều chỉnh content area */
+            .content-area {
+                width: 100%;
+                padding: 15px;
+            }
+        }
+
+        /* Thêm animation mượt mà */
+        .side-nav {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .nav-toggle {
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        /* Hiệu ứng khi click button */
+        .nav-toggle.active {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="container">
+        <div class="header" style="padding: 0px;">
+            <div class="hamburger" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <div class="desktop-menu">
+                <ul id="nav-menu">
+                    <li class="list" aria-haspopup="true" tabindex="0">
+                        <a id="service">Services </a>
+                        <div class="submenu">
+                            <div class="submenu-container">
+                                <!-- Phương pháp vận chuyển -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Transport.html">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Transportation</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Transport.html#section1">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Road Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section2">
+                                            <i class="fas fa-ship"></i>
+                                            <span>Sea Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section3">
+                                            <i class="fas fa-plane"></i>
+                                            <span>Air Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section4">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            <span>Multi-modal Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section5">
+                                            <i class="fas fa-train"></i>
+                                            <span>Cross-border Transportation</span>
+                                        </a>
+                                        <a href="Transport.html#section6">
+                                            <i class="fas fa-box-open"></i>
+                                            <span>Door-to-Door Service</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Logistics và chuỗi cung ứng -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Logistic.html">
+                                            <i class="fas fa-network-wired"></i>
+                                            <span>Logistics & Supply Chain</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Logistic.html#section1">
+                                            <i class="fas fa-warehouse"></i>
+                                            <span>Warehouse & Distribution</span>
+                                        </a>
+                                        <a href="Logistic.html#section2">
+                                            <i class="fas fa-boxes"></i>
+                                            <span>Supply Chain Management</span>
+                                        </a>
+                                        <a href="Logistic.html#section3">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <span>Customs Clearance</span>
+                                        </a>
+                                        <a href="Logistic.html#section4">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Logistics Insurance</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Lĩnh vực -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Industry.html">
+                                            <i class="fas fa-industry"></i>
+                                            <span>Industry</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Food & Beverage</span>
+                                        </a>
+                                        <a href="Industry.html#section2">
+                                            <i class="fas fa-tshirt"></i>
+                                            <span>Retail & Fashion</span>
+                                        </a>
+                                        <a href="Industry.html#section3">
+                                            <i class="fas fa-car"></i>
+                                            <span>Automotive & Parts</span>
+                                        </a>
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>Technology & Electronics</span>
+                                        </a>
+                                        <a href="Industry.html#section6">
+                                            <i class="fas fa-prescription-bottle-alt"></i>
+                                            <span>Pharmaceuticals & Healthcare</span>
+                                        </a>
+                                        <a href="Industry.html#section7">
+                                            <i class="fas fa-hard-hat"></i>
+                                            <span>Construction & Industry</span>
+                                        </a>
+                                        <a href="Industry.html#section9">
+                                            <i class="fas fa-oil-can"></i>
+                                            <span>Oil & Energy</span>
+                                        </a>
+                                        <a href="Industry.html#section10">
+                                            <i class="fas fa-vial"></i>
+                                            <span>Chemicals & Materials</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li><span>|</span>
+                    <a href="About.html">About</a><span>|</span>
+                    <a href="Sustainability.html">Sustainability</a><span>|</span>
+                    <a href="News.html">News</a><span>|</span>
+                    <a href="Contact.html">Contact</a><span>|</span>
+                    <a href="Contact.html" style="padding: 5px;padding-left: 20px; color: orange;"><span class="flag-icon flag-icon-vn"></span></a>
+                    <a href="Contact(ENG).html" style="padding: 5px;"><span class="flag-icon flag-icon-us"></span></a>
+                </ul>
+            </div>
+            <div class="mobile-menu-container">
+                <div class="mobile-menu" id="main-menu">
+                    <ul class="menu-list">
+                        <li class="has-submenu"></li>
+                            <a href="#" class="service-link">
+                                Services
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="Sustainability.html">Sustainability</a></li>
+                        <li><a href="News.html">News</a></li>
+                        <li><a href="Contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="mobile-submenu" id="service-menu">
+                    <div class="submenu-header">
+                        <a href="#" class="back-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            Back
+                        </a>
+                        <span>Services</span>
+                    </div>
+                    <ul class="submenu-list">
+                        <li><a href="Transport.html" style="font-size: 20px; color: blue;">Transportation</a></li>
+                        <li><a href="Transport.html#section1">Road Transportation</a></li>
+                        <li><a href="Transport.html#section2">Sea Transportation</a></li>
+                        <li><a href="Transport.html#section3">Air Transportation</a></li>
+                        <li><a href="Transport.html#section4">Multi-modal Transportation</a></li>
+                        <li><a href="Transport.html#section5">Cross-border Transportation</a></li>
+                        <li><a href="Transport.html#section6">Door-to-Door Service</a></li>
+                        
+                        <li><a href="Logistic.html" style="font-size: 20px; color: blue;">Logistics & Supply Chain</a></li>
+                        <li><a href="Logistic.html#section1">Warehouse & Distribution</a></li>
+                        <li><a href="Logistic.html#section2">Supply Chain Management</a></li>
+                        <li><a href="Logistic.html#section3">Customs Clearance</a></li>
+                        <li><a href="Logistic.html#section4">Logistics Insurance</a></li>
+                        
+                        <li><a href="Industry.html" style="font-size: 20px; color: blue;">Industry</a></li>
+                        <li><a href="Industry.html#section1">Food & Beverage</a></li>
+                        <li><a href="Industry.html#section2">Retail & Fashion</a></li>
+                        <li><a href="Industry.html#section3">Automotive & Parts</a></li>
+                        <li><a href="Industry.html#section4">Technology & Electronics</a></li>
+                        <li><a href="Industry.html#section6">Pharmaceuticals & Healthcare</a></li>
+                        <li><a href="Industry.html#section7">Construction & Industry</a></li>
+                        <li><a href="Industry.html#section9">Oil & Energy</a></li>
+                        <li><a href="Industry.html#section10">Chemicals & Materials</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 40px; padding: 30px;padding-top: 100px; font-weight: bold; text-align: center; color: rebeccapurple;">
+            CONTACT
+        </div>
+    </div>
+        <!-- Thêm vào sau div class="container" -->
+    <div class="contact-container">
+        <!-- Left Navigation -->
+        <nav class="side-nav">
+            <ul>
+                <li class="nav-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#contact-form" class="active">Contact</a></li>
+                        <li><a href="#office-locations">Office</a></li>
+                        <li><a href="#support-channels">Support</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-section">
+                    <h3>FAQ</h3>
+                    <ul>
+                        <li><a href="#general-faq">General FAQ</a></li>
+                        <li><a href="#payment-faq">Payment FAQ</a></li>
+                    </ul>
+                </li>
+                
+                <li class="nav-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#documents">Documents</a></li>
+                        <li><a href="#tools">Support Tools</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <div id="contact-form" class="content-section active">
+                <h2>Contact Form</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject">
+                            <option value="">Choose a subject</option>
+                            <option value="support">Technical Support</option>
+                            <option value="billing">Payment</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send</button>
+                </form>
+            </div>
+            
+            <!-- Các section khác sẽ được ẩn mặc định -->
+            <div id="office-locations" class="content-section">
+                <h2>LogiTrack Office</h2>
+                <div class="office-grid">
+                    <div class="office-card">
+                        <h3>Headquarters - TP.HCM</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Nguyễn Văn Linh, Quận 7</p>
+                        <p><i class="fas fa-phone"></i> (028) 1234 5678</p>
+                        <p><i class="fas fa-clock"></i> 8:00 - 17:30 (T2-T6)</p>
+                    </div>
+                    <div class="office-card">
+                        <h3>Hanoi Branch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 456 Phạm Hùng, Nam Từ Liêm</p>
+                        <p><i class="fas fa-phone"></i> (024) 9876 5432</p>
+                        <p><i class="fas fa-clock"></i> 8:00 - 17:30 (T2-T6)</p>
+                    </div>
+                    <div class="office-card">
+                        <h3>Da Nang Branch</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 789 Ngô Quyền, Sơn Trà</p>
+                        <p><i class="fas fa-phone"></i> (0236) 333 4444</p>
+                        <p><i class="fas fa-clock"></i> 8:00 - 17:30 (T2-T6)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="support-channels" class="content-section">
+                <h2>Support Channels</h2>
+                <div class="support-channels">
+                    <div class="support-card">
+                        <i class="fas fa-headset"></i>
+                        <h3>Hotline 24/7</h3>
+                        <p>1800 1234</p>
+                        <p>Customer Support 24/7</p>
+                    </div>
+                    <div class="support-card">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>support@logitrack.com</p>
+                        <p>Response within 24h</p>
+                    </div>
+                    <div class="support-card">
+                        <i class="fab fa-facebook-messenger"></i>
+                        <h3>Live Chat</h3>
+                        <p>Chat online</p>
+                        <p>8:00 - 22:00 daily</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Thêm các section khác tương tự -->
+
+            <!-- FAQ Section -->
+            <div id="general-faq" class="content-section">
+                <h2>General FAQ</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How to track my order?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To track your order, you can:</p>
+                            <ul>
+                                <li>Enter the tracking number on the website</li>
+                                <li>Use the LogiTrack mobile app</li>
+                                <li>Contact the hotline 1800 1234</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Average shipping time?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Shipping time depends on the route:</p>
+                            <ul>
+                                <li>Within the city: 1-2 days</li>
+                                <li>Between provinces: 2-3 days</li>
+                                <li>International: 5-7 working days</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Compensation policy for goods?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We have a clear compensation policy:</p>
+                            <ul>
+                                <li>Compensate 100% of the declared value if the goods are lost</li>
+                                <li>Compensate according to the actual damage level</li>
+                                <li>Resolve complaints within 24h</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shipping FAQ -->
+            <div id="shipping-faq" class="content-section">
+                <h2>Shipping FAQ</h2>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What are the shipping methods?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <div class="shipping-methods">
+                                <div class="method-card">
+                                    <i class="fas fa-truck"></i>
+                                    <h4>Road</h4>
+                                    <p>Suitable for domestic transport</p>
+                                </div>
+                                <div class="method-card">
+                                    <i class="fas fa-ship"></i>
+                                    <h4>Sea</h4>
+                                    <p>Suitable for large cargo</p>
+                                </div>
+                                <div class="method-card">
+                                    <i class="fas fa-plane"></i>
+                                    <h4>Air</h4>
+                                    <p>Fast international transport</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payment FAQ Section -->
+            <div id="payment-faq" class="content-section">
+                <h2>Payment & Service Fees</h2>
+                
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <h3>Payment Methods</h3>
+                    <div class="payment-grid">
+                        <div class="payment-card">
+                            <i class="fas fa-university"></i>
+                            <h4>Bank Transfer</h4>
+                            <p>Transfer through all domestic banks</p>
+                            <div class="bank-logos">
+                                <img src="images/vietcombank.png" alt="Vietcombank">
+                                <img src="images/techcombank.png" alt="Techcombank">
+                                <img src="images/bidv.png" alt="BIDV">
+                            </div>
+                        </div>
+
+                        <div class="payment-card">
+                            <i class="fas fa-credit-card"></i>
+                            <h4>Credit/Debit Card</h4>
+                            <p>Secure payment through VNPAY gateway</p>
+                            <div class="card-logos">
+                                <img src="images/visa.png" alt="Visa">
+                                <img src="images/mastercard.png" alt="Mastercard">
+                                <img src="images/jcb.png" alt="JCB">
+                            </div>
+                        </div>
+
+                        <div class="payment-card">
+                            <i class="fas fa-wallet"></i>
+                            <h4>E-wallet</h4>
+                            <p>Quick payment through e-wallet</p>
+                            <div class="ewallet-logos">
+                                <img src="images/momo.png" alt="Momo">
+                                <img src="images/zalopay.png" alt="ZaloPay">
+                                <img src="images/vnpay.png" alt="VNPay">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment FAQ -->
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>When do I need to pay shipping fees?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>There are 2 payment methods:</p>
+                            <ul>
+                                <li>Prepayment: Customer pays when placing an order</li>
+                                <li>Payment after: Payment when receiving goods (COD)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How is shipping fee calculated?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Shipping fee is calculated based on:</p>
+                            <ul>
+                                <li>Weight of the cargo</li>
+                                <li>Distance of the shipment</li>
+                                <li>Shipping method</li>
+                                <li>Additional services (if any)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Refund policy?</h3>
+                            <span class="toggle-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We commit to refund in the following cases:</p>
+                            <ul>
+                                <li>Not delivered: Refund 100%</li>
+                                <li>Late delivery: Refund according to compensation policy</li>
+                                <li>Damaged goods: Refund according to damage level</li>
+                            </ul>
+                            <p>Refund time: 3-5 working days</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service Fees -->
+                <div class="service-fees">
+                    <h3>Service Fees</h3>
+                    <div class="fee-table-container">
+                        <table class="fee-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Within the city</th>
+                                    <th>Between provinces</th>
+                                    <th>International</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Standard</td>
+                                    <td>20.000đ</td>
+                                    <td>30.000đ</td>
+                                    <td>200.000đ</td>
+                                </tr>
+                                <tr>
+                                    <td>Express</td>
+                                    <td>30.000đ</td>
+                                    <td>45.000đ</td>
+                                    <td>300.000đ</td>
+                                </tr>
+                                <tr>
+                                    <td>Fire Express</td>
+                                    <td>50.000đ</td>
+                                    <td>75.000đ</td>
+                                    <td>500.000đ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Documents Section -->
+            <div id="documents" class="content-section">
+                <h2>Documents & Forms</h2>
+                <div class="document-grid">
+                    <div class="document-card">
+                        <div class="document-content">
+                            <i class="fas fa-file-pdf"></i>
+                            <h3>Shipping Guide</h3>
+                            <p>Shipping process and requirements</p>
+                            <div class="document-info">
+                                <span><i class="fas fa-file-download"></i> 2.5MB</span>
+                                <span><i class="fas fa-clock"></i> Updated: 01/03/2024</span>
+                            </div>
+                        </div>
+                        <div class="download-btn-container">
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="document-card">
+                        <div class="document-content">
+                            <i class="fas fa-file-contract"></i>
+                            <h3>Shipping Regulations</h3>
+                            <p>Detailed terms and regulations</p>
+                            <div class="document-info">
+                                <span><i class="fas fa-file-download"></i> 1.8MB</span>
+                                <span><i class="fas fa-clock"></i> Updated: 01/03/2024</span>
+                            </div>
+                        </div>
+                        <div class="download-btn-container">
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+
+                    <div class="document-card">
+                        <div class="document-content">
+                            <i class="fas fa-file-invoice"></i>
+                            <h3>Declaration Form</h3>
+                            <p>Declaration form for cargo</p>
+                            <div class="document-info">
+                                <span><i class="fas fa-file-download"></i> 500KB</span>
+                                <span><i class="fas fa-clock"></i> Updated: 01/03/2024</span>
+                            </div>
+                        </div>
+                        <div class="download-btn-container">
+                            <a href="#" class="download-btn">Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Section -->
+            <div id="tools" class="content-section">
+                <h2>Useful Tools</h2>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <i class="fas fa-calculator"></i>
+                            <h3>Shipping Fee Calculator</h3>
+                            <p>Accurate shipping fee estimation</p>
+                            <div class="tool-features">
+                                <span><i class="fas fa-check"></i> Automatic fee calculation</span>
+                                <span><i class="fas fa-check"></i> Multiple routes</span>
+                                <span><i class="fas fa-check"></i> Real-time update</span>
+                            </div>
+                        </div>
+                        <div class="tool-btn-container">
+                            <a href="#" class="tool-btn">Use now</a>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <i class="fas fa-map-marked-alt"></i>
+                            <h3>Post Office Search</h3>
+                            <p>Find the nearest shipping point</p>
+                            <div class="tool-features">
+                                <span><i class="fas fa-check"></i> Detailed map</span>
+                                <span><i class="fas fa-check"></i> Contact information</span>
+                                <span><i class="fas fa-check"></i> Working hours</span>
+                            </div>
+                        </div>
+                        <div class="tool-btn-container">
+                            <a href="#" class="tool-btn">Find post office</a>
+                        </div>
+                    </div>
+
+                    <div class="tool-card">
+                        <div class="tool-content">
+                            <i class="fas fa-truck-loading"></i>
+                            <h3>Register Pickup</h3>
+                            <p>Set up pickup time at your location</p>
+                            <div class="tool-features">
+                                <span><i class="fas fa-check"></i> Free pickup</span>
+                                <span><i class="fas fa-check"></i> Choose time</span>
+                                <span><i class="fas fa-check"></i> Real-time tracking</span>
+                            </div>
+                        </div>
+                        <div class="tool-btn-container">
+                            <a href="#" class="tool-btn">Set up pickup</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="scrollTopButton" title="Lên đầu trang">
+            <i class="fas fa-chevron-up"></i>
+        </button>
+    </div>
+    <footer class="main-footer">
+        <div class="container" style="background: white;">
+            <div class="footer-grid">
+            <!-- Company Info -->
+            <div class="footer-section">
+                <h3>LOGISTICS GROUP</h3>
+                <h2 class="company-name">Logi<span class="highlight">Track</span> GROUP</h2>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Ho Chi Minh City</p>
+                    <p><i class="fas fa-phone"></i></p>
+                    <p><i class="fas fa-envelope"></i></p>
+                    <p><i class="fas fa-globe"></i> </p>
+                </div>
+            </div>
+    
+            <!-- Map Section -->
+            <div class="footer-section">
+                <h3>COMPANY LOCATION</h3>
+                <h2>Find Us On The Map</h2>
+                <div class="map-container">
+                    <img src="images/world-map.png" alt="World Map" class="world-map">
+                    <div class="map-marker vietnam"></div>
+                </div>
+            </div>
+    
+            <!-- Connect Section -->
+            <div class="footer-section">
+                <h3>CONNECT WITH US</h3>
+                <h2>Social Media</h2>
+                <div class="social-links">
+                    <a href="#" class="social-btn facebook" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-btn twitter" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-btn tiktok" aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-btn youtube" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                    </a>
+                    <a href="#" class="social-btn linkedin" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-btn instagram" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                    </a>
+
+                </div>
+                <a href="{link}" title="Chứng nhận Tick Đỏ ECheck Verified" target="_blank"><img style="height: 48px; width: auto;" src="https://echeck.numbala.com/imgs/echeck1.svg" alt="Chứng nhận Tick Đỏ ECheck Verified"></a>
+            </div>
+        </div>
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <!-- Copyright Section -->
+                    <div class="copyright">
+                        <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
+                        <p>&copy; 2024 LogiTrack. All rights reserved.</p>
+                    </div>
+
+                    <!-- Policies Section -->
+                    <div class="footer-policies">
+                        <ul>
+                            <li><a href="privacy.html">Privacy Policy</a></li>
+                            <span>|</span>
+                            <li><a href="terms.html">Terms of Use</a></li>
+                            <span>|</span>
+                            <li><a href="cookie-policy.html">Cookie Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.submenu li a').forEach(link => {
+        link.addEventListener('click', function(event) {
+            event.stopPropagation();
+        });
+    });
+    document.addEventListener('click', function(event) {
+        const isClickInsideList = document.querySelector('.list').contains(event.target);
+        const submenu = document.querySelector('.submenu');
+
+        if (!isClickInsideList && submenu.classList.contains('show')) {
+            submenu.classList.remove('show');
+        }
+    });
+    
+    const navToggle = document.getElementById('navToggle');
+    const sideNav = document.querySelector('.side-nav');
+    const contentArea = document.querySelector('.content-area');
+
+    // Toggle nav khi click button
+    navToggle.addEventListener('click', function() {
+        sideNav.classList.toggle('show');
+        // Thay đổi icon
+        const icon = this.querySelector('i');
+        if (sideNav.classList.contains('show')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Đóng nav khi click bên ngoài
+    document.addEventListener('click', function(e) {
+        if (!sideNav.contains(e.target) && 
+            !navToggle.contains(e.target) && 
+            sideNav.classList.contains('show')) {
+            sideNav.classList.remove('show');
+            const icon = navToggle.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+
+    // Đóng nav sau khi chọn link
+    const navLinks = document.querySelectorAll('.side-nav a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                sideNav.classList.remove('show');
+                const icon = navToggle.querySelector('i');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    });
+
+    // Xử lý form submission
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Xử lý gửi form ở đây
+            alert('Form đã được gửi!');
+        });
+    }
+
+    // Xử lý tải tài liệu
+    const downloadButtons = document.querySelectorAll('.download-btn');
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Xử lý tải tài liệu ở đây
+            alert('Bắt đầu tải tài liệu...');
+        });
+    });
+
+    // Xử lý công cụ
+    const toolButtons = document.querySelectorAll('.tool-btn');
+    toolButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            // Xử lý công cụ ở đây
+            alert('Đang mở công cụ...');
+        });
+    });
+
+    // Cải thiện responsive cho các grid
+    function adjustGridLayout() {
+        const grids = [
+            '.document-grid',
+            '.tools-grid',
+            '.office-grid',
+            '.support-channels'
+        ];
+
+        grids.forEach(gridClass => {
+            const grid = document.querySelector(gridClass);
+            if (grid) {
+                const items = grid.children;
+                if (window.innerWidth <= 768) {
+                    Array.from(items).forEach(item => {
+                        item.style.width = '100%';
+                        item.style.marginBottom = '20px';
+                    });
+                } else {
+                    Array.from(items).forEach(item => {
+                        item.style.width = '';
+                        item.style.marginBottom = '';
+                    });
+                }
+            }
+        });
+    }
+
+    // Gọi function khi load trang và resize window
+    adjustGridLayout();
+    window.addEventListener('resize', adjustGridLayout);
+
+    // Đảm bảo tất cả các form đều có thể submit
+    document.querySelectorAll('form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Validate form
+            if (validateForm(this)) {
+                // Process form submission
+                submitForm(this);
+            }
+        });
+    });
+
+    // Form validation
+    function validateForm(form) {
+        let isValid = true;
+        const inputs = form.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                isValid = false;
+                input.classList.add('error');
+            } else {
+                input.classList.remove('error');
+            }
+        });
+
+        return isValid;
+    }
+
+    // Form submission
+    function submitForm(form) {
+        // Add loading state
+        form.classList.add('loading');
+        const submitBtn = form.querySelector('[type="submit"]');
+        if (submitBtn) {
+            submitBtn.disabled = true;
+        }
+
+        // Simulate form submission
+        setTimeout(() => {
+            form.classList.remove('loading');
+            if (submitBtn) {
+                submitBtn.disabled = false;
+            }
+            alert('Form submitted successfully!');
+            form.reset();
+        }, 1000);
+    }
+
+    // Ensure all interactive elements are clickable
+    function makeElementsClickable() {
+        const clickableElements = document.querySelectorAll(
+            'button, input, select, textarea, .download-btn, .tool-btn'
+        );
+
+        clickableElements.forEach(element => {
+            element.style.cursor = 'pointer';
+            element.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
+        });
+    }
+
+    // Initialize clickable elements
+    makeElementsClickable();
+
+    // Scroll to top when switching sections
+    function scrollToTop() {
+        const contentArea = document.querySelector('.content-area');
+        if (contentArea) {
+            contentArea.scrollTop = 0;
+        }
+    }
+
+    // Add scroll to top when switching sections
+    document.querySelectorAll('.side-nav a').forEach(link => {
+        link.addEventListener('click', scrollToTop);
+    });
+
+    // Fix iOS scroll issues
+    document.addEventListener('touchmove', function(e) {
+        const contentArea = document.querySelector('.content-area');
+        if (contentArea && !contentArea.contains(e.target)) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+});
+    </script>
+</body>
+</html>
