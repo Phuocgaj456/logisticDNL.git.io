@@ -448,7 +448,7 @@ table, th {
   top: 50%;
   transform: translateY(-50%);
   padding: 16px 25px;
-  background: #0400ff;
+  background: #f9bf01;
   color: white;
   border: none;
   border-radius: 25px;
@@ -642,7 +642,7 @@ table, th {
   }
   
   .learn-more {
-    color: #FF6B00;
+    color: blue;
     text-decoration: none;
     font-weight: 500;
     display: flex;
