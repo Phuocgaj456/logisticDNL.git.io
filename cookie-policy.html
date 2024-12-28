@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logistics</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/2.3.1/css/flag-icon.min.css" rel="stylesheet"/>
+    <script lang="javascript" src="java/java.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="css/styles.css" type="text/css" rel="stylesheet"/>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script> 
+    <style>
+        .imgages{
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 1;
+            transition: opacity 4s ease-in-out;
+        }
+    </style>
+</head>
+</head>
+<body>
+    <div class="container">
+        <div class="header" style="padding: 0px;">
+            <div class="hamburger" id="hamburger-btn">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <a href="Home.html" style="padding: 20px;"><span style="font-size: 20px; font-weight: bold; color: blue;">LOGI</span><span style="font-size: 20px; font-weight: bold; color: orange; font-style: italic;">TRACK</span></a>
+            <div class="desktop-menu">
+                <ul id="nav-menu">
+                    <li class="list" aria-haspopup="true" tabindex="0">
+                        <a id="service">Dịch vụ </a>
+                        <div class="submenu">
+                            <div class="submenu-container">
+                                <!-- Phương pháp vận chuyển -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Transport.html">
+                                            <i class="fas fa-truck-moving"></i>
+                                            <span>Phương pháp vận chuyển</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Transport.html#section1">
+                                            <i class="fas fa-truck"></i>
+                                            <span>Vận chuyển đường bộ</span>
+                                        </a>
+                                        <a href="Transport.html#section2">
+                                            <i class="fas fa-ship"></i>
+                                            <span>Vận chuyển đường biển</span>
+                                        </a>
+                                        <a href="Transport.html#section3">
+                                            <i class="fas fa-plane"></i>
+                                            <span>Vận chuyển hàng không</span>
+                                        </a>
+                                        <a href="Transport.html#section4">
+                                            <i class="fas fa-exchange-alt"></i>
+                                            <span>Vận chuyển đa phương thức</span>
+                                        </a>
+                                        <a href="Transport.html#section5">
+                                            <i class="fas fa-train"></i>
+                                            <span>Vận chuyển xuyên biên giới</span>
+                                        </a>
+                                        <a href="Transport.html#section6">
+                                            <i class="fas fa-box-open"></i>
+                                            <span>Dịch vụ Door-to-Door</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Logistics và chuỗi cung ứng -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Logistic.html">
+                                            <i class="fas fa-network-wired"></i>
+                                            <span>Logistics và chuỗi cung ứng</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Logistic.html#section1">
+                                            <i class="fas fa-warehouse"></i>
+                                            <span>Kho bãi & Phân phối</span>
+                                        </a>
+                                        <a href="Logistic.html#section2">
+                                            <i class="fas fa-boxes"></i>
+                                            <span>Quản lý chuỗi cung ứng</span>
+                                        </a>
+                                        <a href="Logistic.html#section3">
+                                            <i class="fas fa-clipboard-check"></i>
+                                            <span>Thông quan Hải quan</span>
+                                        </a>
+                                        <a href="Logistic.html#section4">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Bảo hiểm Logistics</span>
+                                        </a>
+                                    </div>
+                                </div>
+    
+                                <!-- Lĩnh vực -->
+                                <div class="submenu-group">
+                                    <div class="submenu-header">
+                                        <a href="Industry.html">
+                                            <i class="fas fa-industry"></i>
+                                            <span>Lĩnh vực</span>
+                                        </a>
+                                    </div>
+                                    <div class="submenu-items">
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Thực phẩm & Đồ uống</span>
+                                        </a>
+                                        <a href="Industry.html#section2">
+                                            <i class="fas fa-tshirt"></i>
+                                            <span>Bán lẻ & Thời trang</span>
+                                        </a>
+                                        <a href="Industry.html#section3">
+                                            <i class="fas fa-car"></i>
+                                            <span>Ô tô & Phụ tùng</span>
+                                        </a>
+                                        <a href="Industry.html#section1">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>Công nghệ & Điện tử</span>
+                                        </a>
+                                        <a href="Industry.html#section6">
+                                            <i class="fas fa-prescription-bottle-alt"></i>
+                                            <span>Dược phẩm & Y tế</span>
+                                        </a>
+                                        <a href="Industry.html#section7">
+                                            <i class="fas fa-hard-hat"></i>
+                                            <span>Xây dựng & Công nghiệp</span>
+                                        </a>
+                                        <a href="Industry.html#section9">
+                                            <i class="fas fa-oil-can"></i>
+                                            <span>Dầu khí & Năng lượng</span>
+                                        </a>
+                                        <a href="Industry.html#section10">
+                                            <i class="fas fa-vial"></i>
+                                            <span>Hóa chất & Vật liệu</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li><span>|</span>
+                    <a href="About.html">Giới thiệu</a><span>|</span>
+                    <a href="Sustainability.html">Phát triển bền vững</a><span>|</span>
+                    <a href="News.html">Tin tức</a><span>|</span>
+                    <a href="Contact.html">Hỗ trợ</a><span>|</span>
+                    <a href="Home.html" style="padding: 5px;padding-left: 20px; color: orange;"><span class="flag-icon flag-icon-vn"></span></a>
+                    <a href="Home(ENG).html" style="padding: 5px;"><span class="flag-icon flag-icon-us"></span></a>
+                </ul>
+            </div>
+            <div class="mobile-menu-container">
+                <div class="mobile-menu" id="main-menu">
+                    <ul class="menu-list">
+                        <li class="has-submenu"></li>
+                            <a href="#" class="service-link">
+                                Dịch vụ
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </li>
+                        <li><a href="About.html">Giới thiệu</a></li>
+                        <li><a href="Sustainability.html">Phát triển bền vững</a></li>
+                        <li><a href="News.html">Tin tức</a></li>
+                        <li><a href="Contact.html">Hỗ trợ</a></li>
+                    </ul>
+                </div>
+                <div class="mobile-submenu" id="service-menu">
+                    <div class="submenu-header">
+                        <a href="#" class="back-btn">
+                            <i class="fas fa-chevron-left"></i>
+                            Quay lại
+                        </a>
+                        <span>Dịch vụ</span>
+                    </div>
+                    <ul class="submenu-list">
+                        <li><a href="Transport.html" style="font-size: 20px; color: rgb(255, 174, 0);">Phương pháp vận chuyển</a></li>
+                        <li><a href="Transport.html#section1">Vận chuyển đường bộ</a></li>
+                        <li><a href="Transport.html#section2">Vận chuyển đường biển</a></li>
+                        <li><a href="Transport.html#section3">Vận chuyển hàng không</a></li>
+                        <li><a href="Transport.html#section4">Vận chuyển đa phương thức</a></li>
+                        <li><a href="Transport.html#section5">Vận chuyển xuyên biên giới</a></li>
+                        <li><a href="Transport.html#section6">Dịch vụ Door-to-Door</a></li>
+                        
+                        <li><a href="Logistic.html" style="font-size: 20px; color: blue;">Logistics và chuỗi cung ứng</a></li>
+                        <li><a href="Logistic.html#section1">Kho bãi & Phân phối</a></li>
+                        <li><a href="Logistic.html#section2">Quản lý chuỗi cung ứng</a></li>
+                        <li><a href="Logistic.html#section3">Thông quan Hải quan</a></li>
+                        <li><a href="Logistic.html#section4">Bảo hiểm Logistics</a></li>
+                        
+                        <li><a href="Industry.html" style="font-size: 20px; color: blue;">Lĩnh vực</a></li>
+                        <li><a href="Industry.html#section1">Thực phẩm & Đồ uống</a></li>
+                        <li><a href="Industry.html#section2">Bán lẻ & Thời trang</a></li>
+                        <li><a href="Industry.html#section3">Ô tô & Phụ tùng</a></li>
+                        <li><a href="Industry.html#section4">Công nghệ & Điện tử</a></li>
+                        <li><a href="Industry.html#section6">Dược phẩm & Y tế</a></li>
+                        <li><a href="Industry.html#section7">Xây dựng & Công nghiệp</a></li>
+                        <li><a href="Industry.html#section9">Dầu khí & Năng lượng</a></li>
+                        <li><a href="Industry.html#section10">Hóa chất & Vật liệu</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slideshow-container">
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo.png');"></div>
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo1.png');"></div>
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo2.png');"></div>            
+            </div>
+            <div class="mySlides">
+                <div class="imgages" style="background-image: url('images/logo3.png');"></div>
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <a class="next" onclick="plusSlides(1)">❯</a>  
+            <div class="overlay" id="search-overlay">
+                <div class="overlay-content">
+                    <h1>LOGISTICS</h1>
+                    <div class="search-container">
+                        <!-- Search box -->
+                        <div class="search-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                            <input type="text" placeholder="Tìm kiếm dịch vụ mà bạn cần..." class="search-input" id="keyword">
+                            <button id="search-btn" onclick="searchFunction(event)">Tìm kiếm</button>
+                        </div>
+                    </div>
+                    <!-- Close button -->
+                    <button class="close-modal" onclick="closeSearch()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="dot-container" style="display: none;">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+        </div>
+        <section id="services" class="services" style="padding: 20px;">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                <!-- Phương thức vận chuyển -->
+                <div class="section-header">
+                    <h2>Phương Thức Vận Chuyển</h2>
+                    <p>Đa dạng giải pháp vận chuyển cho hàng hóa của bạn</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Vận chuyển đường bộ -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Vận Chuyển Đường Bộ</h3>
+                        <p>Mạng lưới vận tải đường bộ hiệu quả phủ khắp các tuyến đường và điểm đến chính.</p>
+                        <a href="Transport.html#section1" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Vận chuyển đường biển -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-ship"></i>
+                        </div>
+                        <h3>Vận Chuyển Đường Biển</h3>
+                        <p>Giải pháp vận tải biển tiết kiệm chi phí cho vận chuyển hàng hóa số lượng lớn toàn cầu.</p>
+                        <a href="Transport.html#section2" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Vận chuyển hàng không -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3>Vận Chuyển Hàng Không</h3>
+                        <p>Dịch vụ vận chuyển hàng không nhanh chóng và đáng tin cậy trên toàn cầu với khả năng theo dõi thời gian thực.</p>
+                        <a href="Transport.html#section3" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>    
+                    <!-- Vận chuyển đa phương thức -->
+                    <div class="service-card" data-aos="fade-up" data-aos-offset="-100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-route"></i>
+                        </div>
+                        <h3>Vận Chuyển Đa Phương Thức</h3>
+                        <p>Giải pháp vận chuyển tích hợp kết hợp nhiều phương thức vận tải để tối ưu hiệu quả.</p>
+                        <a href="Transport.html#section4" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Vận chuyển xuyên biên giới -->
+                    <div class="service-card" data-aos="fade-up" data-aos-offset="-100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Vận Chuyển Xuyên Biên Giới</h3>
+                        <p>Dịch vụ logistics xuyên biên giới chuyên nghiệp với chuyên môn hải quan và mạng lưới quốc tế.</p>
+                        <a href="Transport.html#section5" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Door-to-Door -->
+                    <div class="service-card" data-aos="fade-up" data-aos-offset="-100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <h3>Dịch Vụ Door-to-Door</h3>
+                        <p>Dịch vụ vận chuyển trọn gói từ điểm lấy hàng đến điểm giao hàng cuối cùng.</p>
+                        <a href="Transport.html#section6" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Logistics và chuỗi cung ứng -->
+        <section class="logistics-supply-chain" style="background: darkorange ; padding: 20px;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                <div class="section-header" style="margin-top: 50px;" data-aos="fade-up" data-aos-delay="50" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                    <h2 style="color: whitesmoke;">Logistics và Chuỗi Cung Ứng</h2>
+                    <p style="color: whitesmoke;">Giải pháp toàn diện cho nhu cầu chuỗi cung ng của bạn</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Kho bãi -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h3>Kho Bãi & Phân Phối</h3>
+                        <p>Cơ sở kho bãi hiện đại với hệ thống quản lý hàng tồn kho tiên tiến.</p>
+                        <a href="Logistic.html#section1" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Chuỗi cung ứng -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Quản Lý Chuỗi Cung Ứng</h3>
+                        <p>Giải pháp chuỗi cung ứng toàn diện được tối ưu hóa về hiệu quả và độ tin cậy.</p>
+                        <a href="Logistic.html#section2" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Thông quan hải quan -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>Thông Quan Hải Quan</h3>
+                        <p>Dịch vụ thông quan chuyên nghiệp, đảm bảo tuân thủ quy định và thủ tục nhanh chóng.</p>
+                        <a href="Logistic.html#section3" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Bảo hiểm logistics -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Bảo Hiểm Logistics</h3>
+                        <p>Giải pháp bảo hiểm toàn diện cho hàng hóa trong suốt quá trình vận chuyển.</p>
+                        <a href="Logistic.html#section4" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Lĩnh vực -->
+        <section class="industry-solutions" style="padding: 20px;" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+            <div class="container" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                <div class="section-header" style="margin-top: 50px;" data-aos="fade-up" data-aos-delay="100" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                    <h2>Lĩnh Vực</h2>
+                    <p>Giải pháp chuyên biệt cho các ngành nghề</p>
+                </div>
+                <div class="services-grid">
+                    <!-- Thực phẩm & Đồ uống -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Thực Phẩm & Đồ Uống</h3>
+                        <p>Giải pháp logistics kiểm soát nhiệt độ cho ngành thực phẩm và đồ uống.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Bán lẻ & Thời trang -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                        <h3>Bán Lẻ & Thời Trang</h3>
+                        <p>Giải pháp logistics chuyên biệt cho ngành bán lẻ và thời trang.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Ô tô & Phụ tùng -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h3>Ô Tô & Phụ Tùng</h3>
+                        <p>Giải pháp vận chuyển chuyên biệt cho linh kiện và phụ tùng ô tô.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Công nghệ & Điện tử -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-microchip"></i>
+                        </div>
+                        <h3>Công Nghệ & Điện Tử</h3>
+                        <p>Giải pháp vận chuyển chuyên biệt cho thiết bị điện tử và công nghệ cao.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Dược phẩm & Y tế -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-prescription-bottle-alt"></i>
+                        </div>
+                        <h3>Dược Phẩm & Y Tế</h3>
+                        <p>Vận chuyển an toàn và đảm bảo chất lượng cho sản phẩm y tế và dược phẩm.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Xây dựng & Công nghiệp -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-hard-hat"></i>
+                        </div>
+                        <h3>Xây Dựng & Công Nghiệp</h3>
+                        <p>Dịch vụ vận chuyển hàng nặng và thiết bị công nghiệp chuyên dụng.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Dầu khí & Năng lượng -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-oil-can"></i>
+                        </div>
+                        <h3>Dầu Khí & Năng Lượng</h3>
+                        <p>Giải pháp logistics chuyên biệt cho ngành dầu khí và năng lượng.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    <!-- Hóa chất & Vật liệu -->
+                    <div class="service-card" data-aos="fade-up" data-aos-mirror="true" data-aos-once="true" data-aos-anchor-placement="top-center">
+                        <div class="service-icon">
+                            <i class="fas fa-vial"></i>
+                        </div>
+                        <h3>Hóa Chất & Vật Liệu</h3>
+                        <p>Vận chuyển an toàn và đúng quy định cho hóa chất và vật liệu đặc biệt.</p>
+                        <a href="#" class="learn-more">Tìm Hiểu Thêm <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Why Choose Us Section -->
+        <section class="why-choose-us" data-aos="fade-up"
+        data-aos-easing="ease-in-out"
+        data-aos-mirror="true"
+        data-aos-once="true"
+        data-aos-anchor-placement="top-center" style="padding: 20px;">
+            <div class="container">
+                
+                </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="footer-bottom-content">
+                        <!-- Copyright Section -->
+                        <div class="copyright">
+                            <img src="images/logo.png" alt="LogiTrack Logo" class="footer-logo">
+                            <p>&copy; 2024 LogiTrack. Bảo lưu mọi quyền.</p>
+                        </div>
+    
+                        <!-- Policies Section -->
+                        <div class="footer-policies">
+                            <ul>
+                                <li><a href="privacy.html">Chính sách bảo mật</a></li>
+                                <span>|</span>
+                                <li><a href="terms.html">Điều khoản sử dụng</a></li>
+                                <span>|</span>
+                                <li><a href="cookie-policy.html">Chính sách Cookie</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("mySlides");
+            let dots = document.getElementsByClassName("dot");
+
+            if (n > slides.length) {
+                slideIndex = 1;
+            }
+
+            if (n < 1) {
+                slideIndex = slides.length;
+            }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+        }
+
+        setInterval(function() {
+            plusSlides(1);
+        }, 5000); 
+    </script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
