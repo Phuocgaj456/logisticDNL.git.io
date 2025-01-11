@@ -606,7 +606,9 @@ table, th {
     display: flex;
     flex-direction: column;
   }
-  
+ #Sustainability.html{
+    zoom: 90%;
+    }
   .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(0,0,0,0.2);

@@ -14,6 +14,11 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
+        body {
+            zoom: 90%;
+            -moz-transform: scale(0.9);
+            -moz-transform-origin: 0 0;
+        }
         /* Container và Layout */
     .sustainability-container {
         background: #f8f9fa;
@@ -26,7 +31,6 @@
         max-width: 1600px;
         margin: 0 auto;
     }
-
     /* Content Sections Styling */
     .content-section {
         background: white;
@@ -129,6 +133,7 @@
         color: #3498db;
         margin-bottom: 15px;
     }
+
 div.content-section{
     zoom: 90%;
 }
@@ -394,7 +399,7 @@ div.side-nav{
             padding: 25px;
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             position: sticky;
-            top: 80px;
+            top: 80px; 
             height: fit-content;
         }
 
@@ -987,6 +992,7 @@ div.side-nav{
         </footer>
     </div>
     <script>
+        	object.style.zoom = "3"
     document.addEventListener('DOMContentLoaded', function() {
         if (window.innerWidth <= 992) {
             const termItems = document.querySelectorAll('.term-item');
@@ -1037,6 +1043,9 @@ div.side-nav{
             });
         }
     });
+
+
+ 
     </script>
 </body>
 </html>
